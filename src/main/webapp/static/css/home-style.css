@@ -1,0 +1,236 @@
+body{
+min-width: 320px;
+color: #FFFFFF;
+}
+img{
+  max-width: 100%;
+  height: auto;
+}
+
+.main-header {
+  margin-top: 0px;
+  margin-bottom: 0px;
+  display: flex;
+  align-items: center;
+}
+.navbar {
+  margin-top: 0;
+  padding: 0;
+}
+
+.navbar-brand{
+  font-family: 'Roboto', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 16px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #F9FE1C;
+  -webkit-text-stroke: 1.5px #000000;
+  width: 93px;
+  padding: 0px;
+  }
+
+.nav-link{
+  font-family: 'Roboto', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 16px;
+  color:#000000;
+  display: flex;
+  align-items: center;
+}
+
+#navbar{
+  height:79px;
+  width: 1065px;
+  background: #FFFFFF;
+  padding: 0;
+  margin-top: 0;
+  margin-left: 188px;
+}
+
+
+.navbar-nav .nav-link img {
+/* Медиа-запрос для устройств с шириной экрана менее 768px */
+@media (max-width: 768px) {
+  .navbar-nav .nav-link img {
+    width: 23px; /* Размер для устройств с малым экраном */
+    height: 23px;
+  }
+}
+}
+
+/* Медиа-запрос для устройств с шириной экрана 769px и более */
+@media (min-width: 769px) {
+  .navbar-nav .nav-link img {
+    width: 57px; /* Размер для устройств с более крупными экранами */
+    height: 57px;
+  }
+}
+
+.main-top{
+  background: #F9F5E7;
+  width: 1065px;
+  height: 947px;
+  margin-top: 47px;
+  margin-left: 188px;
+  margin-right: 188px;
+}
+
+h1{
+font-family: Outfit;
+font-size: 48px;
+font-weight: 700;
+line-height: 48px;
+letter-spacing: 0em;
+text-align: left;
+color:#000000;
+text-transform: uppercase;
+width: 516px;
+height: 170px;
+margin-top: -1px;
+padding-top: 24px;
+}
+
+#top-text{
+font-family: Roboto;
+font-size: 16px;
+font-weight: 700;
+line-height: 16px;
+letter-spacing: 0em;
+text-align: left;
+color:#000000;
+text-transform: uppercase;
+width: 525px;
+height: 57px;
+} 
+.custom-btn {
+font-family: Roboto;
+font-size: 16px;
+font-weight: 700;
+line-height: 16px;
+letter-spacing: 0.1em;
+text-align: center;
+color:#F9F5E7;
+text-transform: uppercase;
+height: 16px;
+text-align: center;
+width: 165px; 
+height: 48px;
+background-color:#000000;
+margin-left: 140px;
+}
+
+.rehoming-center{
+padding-top: 445px;
+width: 1064px;
+height: 68px;
+margin: 0;
+}
+
+.main-top .col-2:first-child {
+  margin-left: 14px; 
+}
+.main-top .col-2:last-child {
+  margin-right: 14px;
+}
+.icon-and-text{
+display: flex;
+align-items: center; 
+text-align: center;
+flex-direction: row-reverse;
+justify-content: space-between;
+ }
+ .icon-and-text p{
+font-family: Roboto;
+font-size: 12px;
+font-weight: 700;
+line-height: 16px;
+letter-spacing: 0em;
+color:#000000;
+text-transform: uppercase;
+white-space: normal;
+align-items: center;
+margin: 0;
+ }
+
+ .rounded-circle{
+  min-width: 57px;
+  height: 57px;
+  background-color:#F6F179;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+}
+
+ .rounded-circle img {
+    max-width: 100%; 
+    height: auto;
+ }
+
+ .find-dog{
+width: 1064px;
+height: 354px;
+margin-top: 79px;
+padding: 0px;
+ }
+
+ .find-dog h2{
+font-family: Outfit;
+font-size: 36px;
+font-weight: 700;
+line-height: 16px;
+letter-spacing: 0em;
+color: #000000;
+}
+#carousel-card{
+width: 705px;
+height: 255x;
+}
+.card{
+  width: 255px; 
+  background-color: #FFFFFF; 
+  text-align: center; 
+  border-radius: 16px;
+  border: 0px;
+  }
+.card-img-container{
+  position: relative;
+}
+.card-img-bottom {
+    margin-top: -24px;
+  }
+
+  .card .card-body .card-title{
+    margin-top: 12px;
+    font-family: Outfit, sans-serif;
+    font-size: 20px;
+    font-weight: 700px;
+    line-height: 16px;
+    letter-spacing: 0em;
+    text-align: center;
+    color: #000000;
+    text-transform: uppercase;
+
+  }
+
+  .card .card-body p.card-text {
+    font-family: 'Outfit', sans-serif;
+    font-size: 20px;
+    font-weight: 400px;
+    line-height: 18px;
+    letter-spacing: 0em;
+    text-align: center;
+    color: #000000;
+    margin-top: 38px;
+    width: 128px;
+    height: 37px;
+    word-wrap: break-word;
+  }
+
+    
+  
+  

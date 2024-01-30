@@ -474,3 +474,33 @@ form input::placeholder {
   opacity: 0.75;
   /* Прозрачность (от 0 до 1) */
 }
+
+.pay-method {
+  width: 340px;
+  height: 47px;
+  display: flex;
+  margin-top: 583px;
+  margin-left: 89px;
+
+}
+
+.icon1 {
+  width: 72.73px;
+  height: 40px;
+  margin-right:22px;
+}
+.icon2 {
+  width: 67px;
+  height: 40px;
+  margin-right:22px;
+}
+.icon3 {
+  width: 67px;
+  height: 47px;
+  margin-right:22px;
+}
+.icon4 {
+  width: 67px;
+  height: 47px;
+}
+

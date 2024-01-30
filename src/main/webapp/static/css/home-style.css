@@ -1,8 +1,9 @@
-body{
-min-width: 320px;
-color: #FFFFFF;
+body {
+  min-width: 320px;
+  color: #FFFFFF;
 }
-img{
+
+img {
   max-width: 100%;
   height: auto;
 }
@@ -13,12 +14,13 @@ img{
   display: flex;
   align-items: center;
 }
+
 .navbar {
   margin-top: 0;
   padding: 0;
 }
 
-.navbar-brand{
+.navbar-brand {
   font-family: 'Roboto', sans-serif;
   font-size: 20px;
   font-weight: 700;
@@ -29,20 +31,20 @@ img{
   -webkit-text-stroke: 1.5px #000000;
   width: 93px;
   padding: 0px;
-  }
+}
 
-.nav-link{
+.nav-link {
   font-family: 'Roboto', sans-serif;
   font-size: 20px;
   font-weight: 700;
   line-height: 16px;
-  color:#000000;
+  color: #000000;
   display: flex;
   align-items: center;
 }
 
-#navbar{
-  height:79px;
+#navbar {
+  height: 79px;
   width: 1065px;
   background: #FFFFFF;
   padding: 0;
@@ -52,24 +54,29 @@ img{
 
 
 .navbar-nav .nav-link img {
-/* Медиа-запрос для устройств с шириной экрана менее 768px */
-@media (max-width: 768px) {
-  .navbar-nav .nav-link img {
-    width: 23px; /* Размер для устройств с малым экраном */
-    height: 23px;
+
+  /* Медиа-запрос для устройств с шириной экрана менее 768px */
+  @media (max-width: 768px) {
+    .navbar-nav .nav-link img {
+      width: 23px;
+      /* Размер для устройств с малым экраном */
+      height: 23px;
+    }
   }
-}
 }
 
 /* Медиа-запрос для устройств с шириной экрана 769px и более */
 @media (min-width: 769px) {
   .navbar-nav .nav-link img {
-    width: 57px; /* Размер для устройств с более крупными экранами */
+    width: 57px;
+    /* Размер для устройств с более крупными экранами */
     height: 57px;
   }
 }
 
-.main-top{
+
+/* Первый блок основного контента */
+.main-top {
   background: #F9F5E7;
   width: 1065px;
   height: 947px;
@@ -78,87 +85,91 @@ img{
   margin-right: 188px;
 }
 
-h1{
-font-family: Outfit;
-font-size: 48px;
-font-weight: 700;
-line-height: 48px;
-letter-spacing: 0em;
-text-align: left;
-color:#000000;
-text-transform: uppercase;
-width: 516px;
-height: 170px;
-margin-top: -1px;
-padding-top: 24px;
+h1 {
+  font-family: Outfit, sans-serif;
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 48px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #000000;
+  text-transform: uppercase;
+  width: 516px;
+  height: 170px;
+  margin-top: -1px;
+  padding-top: 24px;
 }
 
-#top-text{
-font-family: Roboto;
-font-size: 16px;
-font-weight: 700;
-line-height: 16px;
-letter-spacing: 0em;
-text-align: left;
-color:#000000;
-text-transform: uppercase;
-width: 525px;
-height: 57px;
-} 
+#top-text {
+  font-family: Roboto, sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 16px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #000000;
+  text-transform: uppercase;
+  width: 525px;
+  height: 57px;
+}
+
 .custom-btn {
-font-family: Roboto;
-font-size: 16px;
-font-weight: 700;
-line-height: 16px;
-letter-spacing: 0.1em;
-text-align: center;
-color:#F9F5E7;
-text-transform: uppercase;
-height: 16px;
-text-align: center;
-width: 165px; 
-height: 48px;
-background-color:#000000;
-margin-left: 140px;
+  font-family: Roboto, sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 16px;
+  letter-spacing: 0.1em;
+  text-align: center;
+  color: #F9F5E7;
+  text-transform: uppercase;
+  height: 16px;
+  text-align: center;
+  width: 165px;
+  height: 48px;
+  background-color: #000000;
+  margin-left: 140px;
 }
 
-.rehoming-center{
-padding-top: 445px;
-width: 1064px;
-height: 68px;
-margin: 0;
+.rehoming-center {
+  padding-top: 445px;
+  width: 1064px;
+  height: 68px;
+  margin: 0;
 }
 
 .main-top .col-2:first-child {
-  margin-left: 14px; 
+  margin-left: 14px;
 }
+
 .main-top .col-2:last-child {
   margin-right: 14px;
 }
-.icon-and-text{
-display: flex;
-align-items: center; 
-text-align: center;
-flex-direction: row-reverse;
-justify-content: space-between;
- }
- .icon-and-text p{
-font-family: Roboto;
-font-size: 12px;
-font-weight: 700;
-line-height: 16px;
-letter-spacing: 0em;
-color:#000000;
-text-transform: uppercase;
-white-space: normal;
-align-items: center;
-margin: 0;
- }
 
- .rounded-circle{
+.icon-and-text {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+}
+
+.icon-and-text p {
+  font-family: Roboto, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 16px;
+  letter-spacing: 0em;
+  color: #000000;
+  text-transform: uppercase;
+  white-space: normal;
+  align-items: center;
+  margin: 0;
+}
+
+.rounded-circle {
   min-width: 57px;
   height: 57px;
-  background-color:#F6F179;
+  background-color: #F6F179;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -166,71 +177,300 @@ margin: 0;
   border: 0;
 }
 
- .rounded-circle img {
-    max-width: 100%; 
-    height: auto;
- }
-
- .find-dog{
-width: 1064px;
-height: 354px;
-margin-top: 79px;
-padding: 0px;
- }
-
- .find-dog h2{
-font-family: Outfit;
-font-size: 36px;
-font-weight: 700;
-line-height: 16px;
-letter-spacing: 0em;
-color: #000000;
+.rounded-circle img {
+  max-width: 100%;
+  height: auto;
 }
-#carousel-card{
-width: 705px;
-height: 255x;
+
+.find-dog {
+  width: 1064px;
+  height: 354px;
+  margin-top: 79px;
+  padding: 0px;
 }
-.card{
-  width: 255px; 
-  background-color: #FFFFFF; 
-  text-align: center; 
-  border-radius: 16px;
-  border: 0px;
-  }
-.card-img-container{
+
+.find-dog h2 {
+  font-family: Outfit, sans-serif;
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 16px;
+  letter-spacing: 0em;
+  color: #000000;
+  text-transform: capitalize;
+}
+
+#carousel-card {
+  width: 557px;
+  height: 255px;
+  margin-top: 57px;
+  margin-left: 48px;
+  margin-right: 48px;
   position: relative;
 }
+
+.carousel-inner.row {
+  width: 557px;
+  height: 255px;
+  margin: 0px;
+  padding: 0px;
+
+}
+
+.carousel-inner.col {
+  width: 255px;
+  height: 251px;
+  text-align: center;
+  border: 0px;
+  margin: 0px;
+  padding: 0px;
+}
+
+.carousel-item .col:first-child {
+  margin-right: 10px;
+  /* Расстояние между карточками */
+}
+
+
+.card-img-container {
+  position: relative;
+}
+
+.card-img-top {
+  width: 255px;
+  height: 176px;
+}
+
 .card-img-bottom {
-    margin-top: -24px;
-  }
+  margin-top: -24px;
+  width: 255px;
+  height: 99px;
+}
 
-  .card .card-body .card-title{
-    margin-top: 12px;
-    font-family: Outfit, sans-serif;
-    font-size: 20px;
-    font-weight: 700px;
-    line-height: 16px;
-    letter-spacing: 0em;
-    text-align: center;
-    color: #000000;
-    text-transform: uppercase;
+.card .card-body {
+  width: 200px;
+  height: 99px;
+  margin-top: 155px;
+  padding-top: 12px;
+  text-align: center;
+}
 
-  }
+.card .card-body .card-title {
+  font-family: Outfit, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 16px;
+  text-align: center;
+  color: #000000;
+  text-transform: uppercase;
+  margin-bottom: 22px;
 
-  .card .card-body p.card-text {
-    font-family: 'Outfit', sans-serif;
-    font-size: 20px;
-    font-weight: 400px;
-    line-height: 18px;
-    letter-spacing: 0em;
-    text-align: center;
-    color: #000000;
-    margin-top: 38px;
-    width: 128px;
-    height: 37px;
-    word-wrap: break-word;
-  }
+}
 
-    
-  
-  
+.card .card-body p.card-text {
+  font-family: 'Outfit', sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 18px;
+  text-align: center;
+  color: #000000;
+  margin-top: 38px;
+  text-transform: capitalize;
+  margin-top: 0px;
+}
+
+.carousel-control-prev img,
+.carousel-control-next img {
+  width: 37px;
+  height: 37px;
+}
+
+.carousel-control-prev {
+  position: absolute;
+  left: -73px;
+  /* Регулируем расположение кнопки "prev" влево от границы контейнера */
+}
+
+.carousel-control-next {
+  position: absolute;
+  right: -73px;
+  /* Регулируем расположение кнопки "next" вправо от границы контейнера */
+}
+
+.favorite-icon {
+  position: absolute;
+  top: 3px;
+  right: 8px;
+  cursor: pointer;
+}
+
+.favorite-icon .icon-wrapper {
+  display: inline-block;
+}
+
+.favorite-icon svg {
+  fill: transparent;
+  transition: fill 0.3s ease;
+}
+
+.favorite-icon.checked svg {
+  fill: #EA12D4;
+}
+
+form {
+  width: 255px;
+  height: 235px;
+  margin-top: 68px;
+}
+
+form input {
+  box-sizing: border-box;
+  width: 255px;
+  height: 44px;
+  border: 2px solid #ACACAC;
+  /* Толщина и цвет контура */
+  border-radius: 10px;
+  /* Радиус скругления углов */
+  background-color: transparent;
+  box-sizing: border-box;
+  margin-bottom: 25px;
+}
+
+form input:focus {
+  outline: #000000;
+  border: 2px solid #000000;
+}
+
+form input::placeholder {
+  font-family: Roboto, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 16px;
+  letter-spacing: 0em;
+  color: #000000;
+  text-align: left;
+  padding-left: 19px;
+  padding-top: 14px;
+}
+
+/* Стили для кнопки поиска */
+.search-button {
+  width: 253px;
+  height: 48px;
+  border-radius: 40px;
+  background-color: #FFEB00;
+  color: #000000;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-family: Roboto, sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 16px;
+  text-align: center;
+  cursor: pointer;
+  border: none;
+  margin-bottom: 33px;
+}
+
+.search-button:hover {
+  opacity: 0.75;
+  /* Прозрачность (от 0 до 1) */
+}
+
+.catalog {
+  text-decoration: none;
+  font-family: Roboto;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 16px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #000000;
+  text-transform: uppercase;
+}
+
+
+/* Второй блок основного контента */
+.main-bottom {
+
+  background: #FFEB00;
+  width: 885px;
+  height: 882px;
+  border-radius: 15px;
+  margin-left: 278px;
+  margin-top: 56px;
+}
+
+.main-bottom p {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 20px;
+  text-align: center;
+  color: #000000;
+  padding-top: 24px;
+  font-variant: small-caps;
+}
+
+#choose-gift {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 100%;
+  align-items: center;
+  font-variant: small-caps;
+  color: #000000;
+  padding: 0px;
+  margin: 0px;
+}
+
+.miracle {
+  position: absolute;
+  width: 855px;
+  height: 732px;
+  margin-top: 19px;
+  margin-left: 15px;
+  border-radius: 15px;
+  background: #FFFFFF;
+}
+
+.gift {
+  position: absolute;
+  width: 554px;
+  height: 321px;
+  left: 166px;
+  background: #F9F5E7;
+  margin-top: 19px;
+}
+
+.miracle .img-container {
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 100%;
+}
+
+.sacrifice-button {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 100%;
+  text-transform: uppercase;
+  color: #000000;
+  border-radius: 40px;
+  background-color: #FFEB00;
+  cursor: pointer;
+  border: none;
+  width: 524px;
+  height: 48px;
+  margin-top: 518px;
+  margin-left: 15px;
+  position: absolute;
+}
+
+.sacrifice-button:hover {
+  opacity: 0.75;
+  /* Прозрачность (от 0 до 1) */
+}

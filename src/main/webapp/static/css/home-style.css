@@ -389,7 +389,7 @@ form input::placeholder {
 }
 
 
-/* Второй блок основного контента */
+/* Второй блок основного контента home page */
 .main-bottom {
 
   background: #FFEB00;
@@ -487,20 +487,227 @@ form input::placeholder {
 .icon1 {
   width: 72.73px;
   height: 40px;
-  margin-right:22px;
+  margin-right: 22px;
 }
+
 .icon2 {
   width: 67px;
   height: 40px;
-  margin-right:22px;
+  margin-right: 22px;
 }
+
 .icon3 {
   width: 67px;
   height: 47px;
-  margin-right:22px;
+  margin-right: 22px;
 }
+
 .icon4 {
   width: 67px;
   height: 47px;
 }
 
+
+/*Sing_up page */
+
+.title_top_sign_up {
+  font-family: Outfit, sans-serif;
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 16px;
+  letter-spacing: 0em;
+  color: #000000;
+  text-align: center;
+  margin-top: 66px;
+}
+
+.text_top_sign_up {
+  font-family: Roboto;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 16px;
+  letter-spacing: 0em;
+  text-align: center;
+  color: #000000;
+  text-transform: uppercase;
+  margin-top: 38px;
+
+}
+
+
+.top_sign_up {
+  width: 824px;
+  height: 539px;
+  margin-top: 74px;
+  margin-left: 316px;
+  padding: 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.img-sign_up_shape {
+  width: auto;
+  height: auto;
+  padding-right: 65px;
+  padding-left: 10px;
+  padding-top: 57px;
+  padding-bottom: 43px;
+}
+
+.img-sign_up_dog {
+  width: 50%;
+}
+
+.bottom_sign_up {
+  width: 1065px;
+  height: 681px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  top: -25px;
+  overflow: visible;
+}
+
+.title_bottom_sign_up {
+  font-family: Outfit, sans-serif;
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 16px;
+  letter-spacing: 0.02em;
+  color: #000000;
+  text-align: center;
+  font-stretch: expanded;
+}
+
+.text_bottom_sign_up {
+  font-family: Roboto, sans-serif;
+  font-style: normal;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 16px;
+  letter-spacing: 0.02em;
+  text-align: center;
+  color: #000000;
+  text-transform: uppercase;
+  font-stretch: expanded;
+  margin-top: 30px;
+}
+
+.info_bottom_sign_up {
+  font-family: Roboto;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 16px;
+  letter-spacing: 0em;
+  text-align: center;
+  color: #000000;
+  margin-top: 30px;
+  text-transform: capitalize;
+}
+
+.login_bottom_sign_up {
+  font-family: Roboto;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 16px;
+  letter-spacing: 0em;
+  text-align: center;
+  text-transform: uppercase;
+  color: #000000;
+  margin-top: 40px;
+  margin-bottom: 0px;
+}
+
+.login {
+  width: 296px;
+  height: 48px;
+  border-radius: 40px;
+  background-color: #FFEB00;
+  color: #000000;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-family: Roboto, sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 16px;
+  text-align: center;
+  cursor: pointer;
+  border: none;
+  margin-bottom: 33px;
+}
+
+.login:hover {
+  opacity: 0.75;
+  /* Прозрачность (от 0 до 1) */
+}
+
+.input_sign_up {
+  margin-top: 20px;
+  margin-left: -45px;
+}
+
+.input_sign_up input {
+  width: 295px;
+  height: 44px;
+}
+
+.registration {
+  width: 100%;
+  height: 145px;
+  background: #FFF6F8;
+  border-radius: 25px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.title_registration {
+  font-family: Roboto;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 16px;
+  letter-spacing: 0em;
+  color: #000000;
+  text-transform: uppercase;
+  text-align: center;
+  margin-top: 31px;
+  margin-bottom: 0px;
+}
+
+.button_registration {
+  width: 296px;
+  height: 48px;
+  border-radius: 40px;
+  background-color: #FFEB00;
+  color: #000000;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-family: Roboto, sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 16px;
+  text-align: center;
+  cursor: pointer;
+  border: none;
+  margin-top: 22px;
+}
+.title_policy{
+  font-family: Roboto, sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 16px;
+  letter-spacing: 0em;
+  text-align: center;
+  color: #000000;
+  text-transform: uppercase;
+  margin-top: 32px;
+}
+
+.privacy-link{
+  color:#00A3FF;
+  text-decoration: underline;
+  cursor: pointer;
+}

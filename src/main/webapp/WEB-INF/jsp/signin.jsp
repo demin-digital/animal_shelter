@@ -1,54 +1,50 @@
-<!DOCTYPE html>
-<html>
-<body>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+    <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "https://www.w3.org/TR/html4/loose.dtd">
+    <html>
 
-<h2>HTML Forms</h2>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>jQuery, Ajax and Servlet/JSP integration example</title>
 
-<BASE_URL = "http://server_url/" // Your REST interface URL goes here
+        <script src="https://code.jquery.com/jquery-1.10.2.js" type="text/javascript"></script>
+        <script src="js/app-ajax.js" type="text/javascript"></script>
+    </head>
 
-$(".postcode-input button").click(function () {
-    var postcode = $(this).parents(".postcode-input")
-        .children("input").val();
-    // First do some basic validation of the postcode like
-    // correct format etc.
-    if (!validatePostcode(postcode)) {
-        alert("Invalid Postal Code, please try again");
-        return false;
-    }
-    var finalUrl = BASE_URL += "?postcode=" + postcode; 
-    $.ajax({
-        url: finalUrl,
-        cache: false,
-        success: function (html) {
-            // Parse the recieved data here.
-            console.log(html);
-        }
-    });
-});
-/>
+    <body>
 
-<form action="/registration">
-  <label for="fname">First name:</label><br>
-  <input type="text" id="fname" name="fname" value="Ivan"><br>
-  <label for="lname">Last name:</label><br>
-  <input type="text" id="lname" name="lname" value="Ivanov"><br><br>
-  <label for="lname">Phone nubmer:</label><br>
-  <input type="text" id="phone" name="phone" value="+79123456789"><br><br>
-  <label for="lname">Email:</label><br>
-  <input type="text" id="email" name="email" value="example@example.ru"><br><br>
-  <label for="lname">Password:</label><br>
-  <input type="text" id="pass" name="pass" value=""><br><br>
-  <label for="lname">Password again:</label><br>
-  <input type="text" id="passagain" name="passagain" value=""><br><br>
-  <input type="submit" value="Submit">
-</form> 
+        <form>
+            Enter Your Name: <input type="text" id="userName" />
+        </form>
+        <br>
+        <br>
 
-<div class="postcode-input">
-    <input type="text" maxlength="6">
-    <button type="submit"></button>
-</div>
+        <strong>Ajax Response</strong>:
+        <div id="ajaxGetUserServletResponse"></div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                $("button").click(function () {
+                    $.post("http://localhost:8083/registration",
+                        {
+                            email: "MyMan@man.ru",
+                            firstName: "Vova",
+                            password: "777VASYA",
+                            phoneNumber: "+79123456789",
+                            secondName: "PUPINS",
+                            username: "KOROLSOBAK"
+                        },
+                        function (data, status) {
+                            alert("Data: " + data + "\nStatus: " + status);
+                        });
+                });
+            });
+        </script>
+        </head>
 
-<p>If you click the "Submit" button, the form-data will be sent to a page called "/registration".</p>
+        <body>
 
-</body>
-</html>
+            <button>Send an HTTP POST request to a page and get the result back</button>
+
+        </body>
+
+    </html>

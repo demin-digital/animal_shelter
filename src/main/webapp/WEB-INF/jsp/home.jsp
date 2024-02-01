@@ -42,7 +42,7 @@
                         <a class="nav-link" href="#">about us</a>
                     </li>
                     <li class="nav-item">
-                        <a class="navbar-btn" href="sing_up.html">
+                        <a class="navbar-btn" href="sing_up.jsp">
                             <img src="static/png/profile.png" alt="Profile">
                         </a>
                     </li>

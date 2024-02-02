@@ -24,18 +24,31 @@
         <script>
             $(document).ready(function () {
                 $("button").click(function () {
-                    $.post("http://localhost:8083/registration",
-                        {
-                            email: "MyMan@man.ru",
-                            firstName: "Vova",
-                            password: "777VASYA",
-                            phoneNumber: "+79123456789",
-                            secondName: "PUPINS",
-                            username: "KOROLSOBAK"
+                    $.ajax({
+                        url: "http://localhost:8083/registration",
+                        type: "post",
+                        dataType: "json",
+                        headers: { 'Content-Type': 'application/json', 'Accept': '*/*' },
+                        //contentType: "application/json",
+                        data: JSON.stringify({
+                            email: 'MyMan@man.ru',
+                            firstName: 'Vova',
+                            password: '777VASYA',
+                            phoneNumber: '+79123456789',
+                            secondName: 'PUPINS',
+                            username: 'KOROLSOBAK'
+                        }),
+                        success: function (data, status) {
+                            console.log(data);
+                            alert("Data: " + data.JSON.stringify + "\nStatus: " + status);
                         },
-                        function (data, status) {
-                            alert("Data: " + data + "\nStatus: " + status);
-                        });
+                        statusCode: {
+                            500: function (data, status) {
+                                alert("Status code 500, hello epta")
+                                // реализовать далее логику работы с кодами ответа и фронтом
+                            }
+                        }
+                    });
                 });
             });
         </script>

@@ -5,38 +5,48 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>jQuery, Ajax and Servlet/JSP integration example</title>
-
-        <script src="https://code.jquery.com/jquery-1.10.2.js" type="text/javascript"></script>
-        <script src="js/app-ajax.js" type="text/javascript"></script>
     </head>
 
     <body>
 
         <form>
-            Enter Your Name: <input type="text" id="userName" />
+            Enter Your User Name: <input type="text" id="userName" value="Mihalich"/><br><br>
+            Enter Your First Name: <input type="text" id="firstName" value="Mihail"/><br><br>
+            Enter Your Last Name: <input type="text" id="secondName" value="Muzhikovskiy"/><br><br>
+            Enter Your Email: <input type="text" id="email" value="dedpihto@hto.ru"/><br><br>
+            Enter Your Phone Number: <input type="text" id="phoneNumber" value="+79123456789"/><br><br>
+            Enter Your Password: <input type="text" id="password" value="QWERTY1234"/><br><br>
+            Re-Enter Your Password: <input type="text" id="repassword" value="QWERTY1234"/><br><br>
         </form>
         <br>
         <br>
 
         <strong>Ajax Response</strong>:
+
         <div id="ajaxGetUserServletResponse"></div>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         <script>
             $(document).ready(function () {
                 $("button").click(function () {
+                    var userName = $('#userName').val();
+                    var email = $('#email').val();
+                    var firstName = $('#firstName').val();
+                    var password = $('#password').val();
+                    var secondName = $('#secondName').val();
+                    var phoneNumber = $('#phoneNumber').val();
                     $.ajax({
                         url: "http://localhost:8083/registration",
                         type: "post",
                         dataType: "json",
                         headers: { 'Content-Type': 'application/json', 'Accept': '*/*' },
                         //contentType: "application/json",
-                        data: JSON.stringify({
-                            email: 'MyMan@man.ru',
-                            firstName: 'Vova',
-                            password: '777VASYA',
-                            phoneNumber: '+79123456789',
-                            secondName: 'PUPINS',
-                            username: 'KOROLSOBAK'
+                        data: JSON.stringify ({
+                            email: email,
+                            firstName: firstName,
+                            password: password,
+                            phoneNumber: phoneNumber,
+                            secondName: secondName,
+                            username: userName
                         }),
                         success: function (data, status) {
                             console.log(data);

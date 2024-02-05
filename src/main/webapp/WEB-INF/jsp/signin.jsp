@@ -35,7 +35,7 @@
                     var secondName = $('#secondName').val();
                     var phoneNumber = $('#phoneNumber').val();
                     $.ajax({
-                        url: "http://localhost:8083/registration",
+                        url: "http://195.2.92.56:8083/registration",
                         type: "post",
                         dataType: "json",
                         headers: { 'Content-Type': 'application/json', 'Accept': '*/*' },

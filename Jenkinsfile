@@ -18,7 +18,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 // Run Spring on a Unix agent.
-                sh "spring-boot:run"
+                sh "mvn spring-boot:run"
             }
         }
     }

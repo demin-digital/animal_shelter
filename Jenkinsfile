@@ -26,7 +26,7 @@ pipeline {
             steps {
                 withMaven {
                 // Run Spring on a Unix agent.
-                sh "./mvnw spring-boot:run"
+                sh "spring-boot:run"
                 }
             }
         }

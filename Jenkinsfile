@@ -20,7 +20,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 // Run Spring on a Unix agent.
-                sh 'export JENKINS_NODE_COOKIE=dontKillMe && mvn spring-boot:run &'
+                sh 'export JENKINS_NODE_COOKIE=dontKillMe && nohup mvn spring-boot:run &> ~/front.out &'
             }
             post {
                 success {

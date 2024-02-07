@@ -24,7 +24,7 @@ pipeline {
             }
             post {
                 success {
-                    echo "Successfully ran the Spring Boot servers. Check it at URL: http://195.2.92.56:8082"
+                    echo "Successfully ran the Spring Boot servers. Check it at URL: http://195.2.92.56:8082. If you whant to stop server, pls use this 2 commands at servers: ps -ef |grep spring , kill (PID)"
                 }
             }
         }

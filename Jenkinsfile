@@ -26,6 +26,7 @@ pipeline {
                 success {
                     echo "Successfully ran the Spring Boot servers. Check it at URL: http://195.2.92.56:8082"
                 }
+            }
         }
     }
 }

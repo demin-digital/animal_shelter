@@ -22,6 +22,10 @@ pipeline {
                 // Run Spring on a Unix agent.
                 sh 'export JENKINS_NODE_COOKIE=dontKillMe && mvn spring-boot:run &'
             }
+            post {
+                success {
+                    echo "Successfully ran the Spring Boot servers. Check it at URL: http://195.2.92.56:8082"
+                }
         }
     }
 }

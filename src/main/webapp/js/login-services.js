@@ -1,67 +1,22 @@
-// Импорт библиотеки Axios
+import CONFIG from './config.js';
 import axios from 'https://cdn.skypack.dev/axios';
 
-//TODO: вынести в глобальные переменные в конфиг
-// Настройка базового URL для Axios
-const serverUrl = "http://localhost:7777"
-axios.defaults.baseURL = serverUrl;
+axios.defaults.baseURL = CONFIG.SERVER_URL;
 
-// Определение переменных для параметров авторизации
-const clientId = "test-client";
-const authHeaderValue = "Basic dGVzdC1jbGllbnQ6dGVzdC1jbGllbnQ=";
-const redirectUri = "http://localhost:5000/code";
-
-const ACCESS_TOKEN_KEY = "access_token";
-
-    // делаем первичный запрос на авторизацию через j-sso
-    function   login() {
+class LoginService {
+    // Редирект на страницу авторизации
+    static login() {
         let requestParams = new URLSearchParams({
             response_type: "code",
-            client_id: clientId,
-            redirect_uri: redirectUri,
-            scope: 'read.scope write.scope'
+            client_id: CONFIG.CLIENT_ID,
+            redirect_uri: CONFIG.REDIRECT_URI,
+            scope: "read.scope write.scope"
         });
-        window.location = serverUrl + "/oauth2/authorize?" + requestParams;
+
+        window.location.href = `${CONFIG.SERVER_URL}/oauth2/authorize?${requestParams}`;
     }
+}
 
-    // После успешного получения кода авторизации, делаем запрос на получение access и refresh токенов
-    function getTokens(code) {
-        let payload = new FormData()
-        payload.append('grant_type', 'authorization_code')
-        payload.append('code', code)
-        payload.append('redirect_uri', redirectUri)
-        payload.append('client_id', clientId)
-
-        try {
-            const response = axios.post('/oauth2/token', payload, {
-                headers: {
-                    'Content-type': 'application/url-form-encoded',
-                    'Authorization': authHeaderValue
-                }
-            });
-
-            // получаем токены, кладем access token в LocalStorage
-            console.log("Result getting tokens: " + response.data)
-            window.sessionStorage.setItem(ACCESS_TOKEN_KEY, response.data[ACCESS_TOKEN_KEY]);
-        } catch (error) {
-            console.error("Error getting tokens: ", error);
-        }
-    }
-
-    // получение информации о токене
-    function getTokenInfo() {
-        let payload = new FormData();
-        // Извлечение access token из LocalStorage и добавление его в параметр `token`
-        payload.append('token', window.sessionStorage.getItem(ACCESS_TOKEN_KEY));
-    
-        return axios.post('/oauth2/token-info', payload, {
-            headers: {
-                'Authorization': authHeaderValue
-            }
-        });
-    }
-
-// Экспорт функций
-window.login = login;
-window.getTokens = getTokens;
-window.getTokenInfo = getTokenInfo;
+// Экспортируем класс и делаем login() доступным глобально
+window.LoginService = LoginService;
+export default LoginService;

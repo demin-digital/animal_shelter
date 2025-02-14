@@ -278,7 +278,9 @@
                         <form>
                             <!-- Форма -->
                             <div>
-                                <input type="text" class="search-city" placeholder="Город">
+                                <select id="city-select" class="search-city" placeholder="Город">
+                                    <option value="" disabled selected>Выберите город</option>
+                                </select>
                             </div>
                             <div>
                                 <input type="text" class="search-breed" placeholder="Порода Собаки">

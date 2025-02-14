@@ -42,7 +42,7 @@
                         <a class="nav-link" href="#">about us</a>
                     </li>
                     <li class="nav-item">
-                        <a class="navbar-btn" href="sign-up">
+                        <a class="navbar-btn" href="#" onclick="LoginService.login()">
                             <img src="static/png/profile.png" alt="Profile">
                         </a>
                     </li>
@@ -313,6 +313,7 @@
     </div>
 </section>
 
+<script src="js/login-services.js" type="module"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"

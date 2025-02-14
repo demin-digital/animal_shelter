@@ -7,6 +7,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+// Тут идет определение правил кто и с какими доступами может зайти на определенную страницу
 @Configuration
 public class SecurityConfig {
 

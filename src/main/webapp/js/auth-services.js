@@ -2,13 +2,6 @@
 import axios from 'https://cdn.skypack.dev/axios';
 import CONFIG from './config.js';
 
-// Конфигурационные параметры
-const SERVER_URL = "http://localhost:7777";
-const CLIENT_ID = "test-client";
-const AUTH_HEADER_VALUE = "Basic dGVzdC1jbGllbnQ6dGVzdC1jbGllbnQ=";
-const REDIRECT_URI = "http://localhost:8082/sign-up";
-const ACCESS_TOKEN_KEY = "access_token";
-
 axios.defaults.baseURL = CONFIG.SERVER_URL;
 
 class AuthService {

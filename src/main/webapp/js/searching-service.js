@@ -38,13 +38,95 @@ class SearchService {
             const selectedCityName = this.options[this.selectedIndex].text; // Получаем название города
 
             console.log('Выбран город:', selectedCityName, 'ID:', selectedCityId);
+        });
+    }
 
-            // Здесь можно отправить выбранный город на сервер или выполнить другие действия
+    // Функция для поиска питомцев
+    static async searchPets(cityId, breed) {
+        try {
+            // Проверяем наличие токена
+            const token = sessionStorage.getItem('access_token');
+            if (!token) {
+                throw new Error('Необходимо авторизоваться для выполнения запроса');
+            }
+
+            // Формируем URL с параметрами поиска
+            const url = new URL(`${CONFIG.BACKEND_URI}/pet/search`, window.location.origin);
+            if (cityId) url.searchParams.append('cityId', cityId);
+            if (breed) url.searchParams.append('breed', breed);
+
+            // Отправляем GET-запрос на сервер с токеном
+            const response = await fetch(url, {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                },
+            });
+
+            if (!response.ok) {
+                throw new Error('Ошибка при выполнении запроса');
+            }
+
+            const pets = await response.json();
+            this.displaySearchResults(pets);
+        } catch (error) {
+            console.error('Ошибка при поиске питомцев:', error);
+            this.displayError(error.message);
+        }
+    }
+
+    // Функция для отображения результатов поиска
+    static displaySearchResults(pets) {
+        const resultsContainer = document.getElementById('search-results');
+        resultsContainer.innerHTML = ''; // Очищаем предыдущие результаты
+
+        if (pets.length === 0) {
+            resultsContainer.innerHTML = '<p>Ничего не найдено.</p>';
+            return;
+        }
+
+        const list = document.createElement('ul');
+        pets.forEach(pet => {
+            const item = document.createElement('li');
+            item.innerHTML = `<p style="color: green;">Кличка: ${pet.nickname}, Порода: ${pet.breed}, Город: ${pet.cityId}<p>`;
+            list.appendChild(item);
+            
+        });
+
+        resultsContainer.appendChild(list);
+    }
+
+    // Функция для отображения ошибки
+    static displayError(message) {
+        const resultsContainer = document.getElementById('search-results');
+        resultsContainer.innerHTML = `<p style="color: red;">Ошибка: ${message}</p>`;
+    }
+
+    // Инициализация обработчика формы поиска
+    static initSearchForm() {
+        const searchForm = document.getElementById('search-form');
+        
+        // Проверяем, существует ли элемент
+        if (!searchForm) {
+            console.error('Элемент с id="search-form" не найден');
+            return;
+        }
+
+        searchForm.addEventListener('submit', function (event) {
+            event.preventDefault(); // Предотвращаем стандартное поведение формы
+
+            // Получаем выбранный город и введенную породу
+            const cityId = document.getElementById('city-select').value;
+            const breed = document.getElementById('breed-input').value;
+
+            // Выполняем поиск
+            SearchService.searchPets(cityId, breed);
         });
     }
 }
+
 // Инициализация
 document.addEventListener("DOMContentLoaded", function () {
     SearchService.loadCities(); // Загружаем список городов
     SearchService.handleCitySelection(); // Настраиваем обработчик выбора города
+    SearchService.initSearchForm(); // Инициализируем обработчик формы поиска
 });

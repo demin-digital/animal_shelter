@@ -333,6 +333,8 @@ form input {
   background-color: transparent;
   box-sizing: border-box;
   margin-bottom: 25px;
+  text-align: left;
+  padding-left: 19px;
 }
 
 form input:focus {
@@ -340,7 +342,41 @@ form input:focus {
   border: 2px solid #000000;
 }
 
-form input::placeholder {
+form input:placeholder {
+  font-family: Roboto, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 16px;
+  letter-spacing: 0em;
+  color: #000000;
+  text-align: left;
+  padding-left: 19px;
+  padding-top: 14px;
+}
+
+form select {
+  box-sizing: border-box;
+  width: 255px;
+  height: 44px;
+  appearance: none;
+  color: #ACACAC;
+  border: 2px solid #ACACAC;
+  /* Толщина и цвет контура */
+  border-radius: 10px;
+  /* Радиус скругления углов */
+  background-color: transparent;
+  box-sizing: border-box;
+  margin-bottom: 25px;
+  text-align: left;
+  padding-left: 19px;
+}
+
+form select:focus {
+  outline: #000000;
+  border: 2px solid #000000;
+}
+
+form select:placeholder {
   font-family: Roboto, sans-serif;
   font-size: 16px;
   font-weight: 400;

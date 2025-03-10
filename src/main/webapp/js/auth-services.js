@@ -25,7 +25,7 @@ class AuthService {
                 }
             });
 
-            // Сохранение токенов через RefreshTokenService
+            // Сохранение токенов через TokenService
             TokenService.saveTokens(response.data);
             console.log("Tokens received:", response.data);
 
@@ -36,7 +36,7 @@ class AuthService {
         }
     }
 
-    // Обработка авторизационного кода и получение токенов
+    // Обработка авторизационного кода (вызываем только на shadow-auth)
     static async handleAuthorization() {
         const code = this.getAuthorizationCode();
         console.log("Authorization code is:", code);
@@ -55,11 +55,11 @@ class AuthService {
     }
 }
 
-// TODO: этот момент ниже можно оптимизировать в сторону автоматической перезагрузки страницы в jsp, нужно подумать;
-// Автоматически вызываем обработку кода при загрузке страницы
+// Вызываем handleAuthorization() только если это shadow-auth.jsp
 document.addEventListener("DOMContentLoaded", () => {
-    AuthService.handleAuthorization();
+    if (window.location.pathname.includes("shadow-auth")) {
+        AuthService.handleAuthorization();
+    }
 });
 
-// Экспортируем класс
 export default AuthService;

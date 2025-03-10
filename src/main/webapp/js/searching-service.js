@@ -1,6 +1,6 @@
-// Импорт библиотеки Axios
 import axios from 'https://cdn.skypack.dev/axios';
 import CONFIG from './config.js';
+import TokenService from './token-service.js';
 
 axios.defaults.baseURL = CONFIG.SERVER_URL;
 
@@ -44,11 +44,8 @@ class SearchService {
     // Функция для поиска питомцев
     static async searchPets(cityId, breed) {
         try {
-            // Проверяем наличие токена
-            const token = sessionStorage.getItem('access_token');
-            if (!token) {
-                throw new Error('Необходимо авторизоваться для выполнения запроса');
-            }
+            // Проверяем и обновляем токен
+            const token = await TokenService.checkAndRefreshToken();
 
             // Формируем URL с параметрами поиска
             const url = new URL(`${CONFIG.BACKEND_URI}/pet/search`, window.location.origin);
@@ -71,6 +68,11 @@ class SearchService {
         } catch (error) {
             console.error('Ошибка при поиске питомцев:', error);
             this.displayError(error.message);
+
+            // Если ошибка связана с авторизацией, перенаправляем на страницу логина
+            if (error.message.includes('Необходимо авторизоваться') || error.message.includes('Не удалось обновить токен')) {
+               // window.location.href = '/login'; TODO: убрать на финальной стадии проекта, либо сделать переадресацию на страницу логина
+            }
         }
     }
 
@@ -89,7 +91,6 @@ class SearchService {
             const item = document.createElement('li');
             item.innerHTML = `<p style="color: green;">Кличка: ${pet.nickname}, Порода: ${pet.breed}, Город: ${pet.cityId}<p>`;
             list.appendChild(item);
-            
         });
 
         resultsContainer.appendChild(list);
@@ -104,7 +105,7 @@ class SearchService {
     // Инициализация обработчика формы поиска
     static initSearchForm() {
         const searchForm = document.getElementById('search-form');
-        
+
         // Проверяем, существует ли элемент
         if (!searchForm) {
             console.error('Элемент с id="search-form" не найден');

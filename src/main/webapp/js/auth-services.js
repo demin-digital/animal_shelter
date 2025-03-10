@@ -1,6 +1,6 @@
-// Импорт библиотеки Axios
 import axios from 'https://cdn.skypack.dev/axios';
 import CONFIG from './config.js';
+import TokenService from './token-service.js';
 
 axios.defaults.baseURL = CONFIG.SERVER_URL;
 
@@ -25,8 +25,8 @@ class AuthService {
                 }
             });
 
-            // Сохранение access token в sessionStorage
-            window.sessionStorage.setItem(CONFIG.ACCESS_TOKEN_KEY, response.data.access_token);
+            // Сохранение токенов через RefreshTokenService
+            TokenService.saveTokens(response.data);
             console.log("Tokens received:", response.data);
 
             return response.data;
@@ -38,12 +38,12 @@ class AuthService {
 
     // Обработка авторизационного кода и получение токенов
     static async handleAuthorization() {
-        const code = AuthService.getAuthorizationCode();
+        const code = this.getAuthorizationCode();
         console.log("Authorization code is:", code);
 
         if (code) {
             try {
-                await AuthService.getTokens(code);
+                await this.getTokens(code);
                 window.history.replaceState({}, document.title, window.location.pathname);
                 window.location.href = "/"; // Перенаправляем на главную страницу
             } catch (error) {
@@ -55,11 +55,11 @@ class AuthService {
     }
 }
 
+// TODO: этот момент ниже можно оптимизировать в сторону автоматической перезагрузки страницы в jsp, нужно подумать;
 // Автоматически вызываем обработку кода при загрузке страницы
 document.addEventListener("DOMContentLoaded", () => {
     AuthService.handleAuthorization();
 });
 
-// Экспортируем класс и делаем login() доступным глобально
-window.AuthService = AuthService;
+// Экспортируем класс
 export default AuthService;

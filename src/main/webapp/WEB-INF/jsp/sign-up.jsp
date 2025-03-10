@@ -70,12 +70,12 @@
                     <p class="info_bottom_sign_up">Если вы не заходили больше года, вам необходимо заново создать аккаунт</p>
                     <p class="login_bottom_sign_up">Войти через почту</p>
                 </div>
-                <form class="input_sign_up">
+                <form class="input_sign_up" id="login-form">
                     <div>
-                      <input type="email" placeholder="Email">
+                      <input type="login" id="login" name="login" placeholder="Логин" required>
                     </div>
                     <div>
-                      <input type="password" placeholder="Пароль">
+                      <input type="password" id="password" name="password" placeholder="Пароль" required>
                     </div>
                     <button type="submit" class="login">Войти</button>
                   </form>
@@ -89,7 +89,37 @@
             </div>
         </section>
 
-        <script src="js/auth-services.js" type="module"></script>
+        <script src="js/login-services.js" type="module"></script>
+        <script type="module">
+            document.addEventListener('DOMContentLoaded', () => {
+                const form = document.getElementById('login-form');
+                if (form) {
+                    form.addEventListener('submit', async function(event) {
+                        event.preventDefault(); // Отменяем стандартное поведение формы
+        
+                        const username = document.getElementById('login').value;
+                        const password = document.getElementById('password').value;
+        
+                        try {
+                            const response = await LoginService.authenticate(username, password);
+                            console.log("Успешная аутентификация:", response);
+        
+                            // Перенаправляем пользователя на главную страницу или другую страницу
+                            window.location.href = "/";
+                        } catch (error) {
+                            console.error("Ошибка аутентификации:", error);
+                            alert("Ошибка аутентификации. Проверьте логин и пароль.");
+                        }
+                    });
+                } else {
+                    console.error("Форма не найдена!");
+                }
+            });
+        </script>
+
+        <script src="js/auth-services.js" type="module">
+             </script>
+
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"

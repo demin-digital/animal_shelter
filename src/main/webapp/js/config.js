@@ -4,7 +4,8 @@ const CONFIG = {
     AUTH_HEADER_VALUE: "Basic dGVzdC1jbGllbnQ6dGVzdC1jbGllbnQ=",
     REDIRECT_URI: "http://localhost:8082/sign-up",
     ACCESS_TOKEN_KEY: "access_token",
-    BACKEND_URI: "http://localhost:8083"
+    BACKEND_URI: "http://localhost:8083",
+    REFRESH_TOKEN_KEY: "refresh_token"
 };
 
 export default CONFIG;

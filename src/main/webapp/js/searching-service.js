@@ -1,4 +1,3 @@
-// Импорт библиотеки Axios
 import axios from 'https://cdn.skypack.dev/axios';
 import CONFIG from './config.js';
 
@@ -41,14 +40,38 @@ class SearchService {
         });
     }
 
+    // Функция для проверки и обновления токена
+    static async checkAndRefreshToken() {
+        const accessToken = sessionStorage.getItem('access_token');
+        const refreshToken = sessionStorage.getItem('refresh_token');
+
+        // Если токены отсутствуют
+        if (!accessToken || !refreshToken) {
+            throw new Error('Необходимо авторизоваться');
+        }
+
+        // Проверяем, истек ли access token
+        if (this.isTokenExpired(accessToken)) {
+            try {
+                // Обновляем токен
+                const newTokens = await this.refreshTokens();
+                sessionStorage.setItem('access_token', newTokens.access_token);
+                sessionStorage.setItem('refresh_token', newTokens.refresh_token);
+                return newTokens.access_token;
+            } catch (error) {
+                console.error('Ошибка при обновлении токена:', error);
+                throw new Error('Не удалось обновить токен. Пожалуйста, авторизуйтесь снова.');
+            }
+        }
+
+        return accessToken;
+    }
+
     // Функция для поиска питомцев
     static async searchPets(cityId, breed) {
         try {
-            // Проверяем наличие токена
-            const token = sessionStorage.getItem('access_token');
-            if (!token) {
-                throw new Error('Необходимо авторизоваться для выполнения запроса');
-            }
+            // Проверяем и обновляем токен
+            const token = await this.checkAndRefreshToken();
 
             // Формируем URL с параметрами поиска
             const url = new URL(`${CONFIG.BACKEND_URI}/pet/search`, window.location.origin);
@@ -71,6 +94,11 @@ class SearchService {
         } catch (error) {
             console.error('Ошибка при поиске питомцев:', error);
             this.displayError(error.message);
+
+            // Если ошибка связана с авторизацией, перенаправляем на страницу логина, если нужно
+            if (error.message.includes('Необходимо авторизоваться') || error.message.includes('Не удалось обновить токен')) {
+                // window.location.href = '/login'; TODO: убрать при финальной реализцаии
+            }
         }
     }
 
@@ -89,7 +117,6 @@ class SearchService {
             const item = document.createElement('li');
             item.innerHTML = `<p style="color: green;">Кличка: ${pet.nickname}, Порода: ${pet.breed}, Город: ${pet.cityId}<p>`;
             list.appendChild(item);
-            
         });
 
         resultsContainer.appendChild(list);
@@ -104,7 +131,7 @@ class SearchService {
     // Инициализация обработчика формы поиска
     static initSearchForm() {
         const searchForm = document.getElementById('search-form');
-        
+
         // Проверяем, существует ли элемент
         if (!searchForm) {
             console.error('Элемент с id="search-form" не найден');
@@ -121,6 +148,48 @@ class SearchService {
             // Выполняем поиск
             SearchService.searchPets(cityId, breed);
         });
+    }
+
+    // Проверка, истек ли срок действия токена
+    static isTokenExpired(token) {
+        if (!token) return true;
+
+        try {
+            const payload = JSON.parse(atob(token.split('.')[1])); // Декодируем payload токена
+            const exp = payload.exp; // Время истечения токена (в секундах)
+            const now = Math.floor(Date.now() / 1000); // Текущее время (в секундах)
+
+            return now >= exp; // Токен истек, если текущее время больше времени истечения
+        } catch (error) {
+            console.error("Error decoding token:", error);
+            return true; // Если токен некорректен, считаем его истекшим
+        }
+    }
+
+    // Обновление токенов с использованием refresh token
+    static async refreshTokens() {
+        const refreshToken = sessionStorage.getItem('refresh_token');
+
+        if (!refreshToken) {
+            throw new Error('Refresh token не найден');
+        }
+
+        let payload = new URLSearchParams();
+        payload.append('grant_type', 'refresh_token');
+        payload.append('refresh_token', refreshToken);
+
+        try {
+            const response = await axios.post('/oauth2/token', payload, {
+                headers: {
+                    'Authorization': CONFIG.AUTH_HEADER_VALUE,
+                },
+            });
+
+            return response.data;
+        } catch (error) {
+            console.error('Ошибка при обновлении токена:', error);
+            throw error;
+        }
     }
 }
 

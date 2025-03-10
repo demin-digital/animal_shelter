@@ -15,8 +15,33 @@ class LoginService {
 
         window.location.href = `${CONFIG.SERVER_URL}/oauth2/authorize?${requestParams}`;
     }
+
+    // Аутентификация через логин и пароль
+    static async authenticate(username, password) {
+        try {
+            const response = await axios.post('/auth', {
+                username: username,
+                password: password
+            }, {
+                baseURL: CONFIG.BACKEND_URI,
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            // Проверяем, есть ли токен в ответе
+            if (response.data.token) {
+                sessionStorage.setItem(CONFIG.RESOURSE_SERVER_TOKEN_KEY, response.data.token);
+                console.log("Токен сохранен:", response.data.token);
+            }
+
+            return response.data;
+        } catch (error) {
+            console.error("Ошибка при аутентификации:", error);
+            throw error;
+        }
+    }
 }
 
-// Экспортируем класс и делаем login() доступным глобально
+// Экспортируем класс и делаем методы доступными глобально
 window.LoginService = LoginService;
-export default LoginService;

@@ -1,6 +1,6 @@
 import axios from 'https://cdn.skypack.dev/axios';
 import CONFIG from './config.js';
-import RefreshTokenService from './refresh-token-service.js';
+import TokenService from './token-service.js';
 
 axios.defaults.baseURL = CONFIG.SERVER_URL;
 
@@ -45,7 +45,7 @@ class SearchService {
     static async searchPets(cityId, breed) {
         try {
             // Проверяем и обновляем токен
-            const token = await RefreshTokenService.checkAndRefreshToken();
+            const token = await TokenService.checkAndRefreshToken();
 
             // Формируем URL с параметрами поиска
             const url = new URL(`${CONFIG.BACKEND_URI}/pet/search`, window.location.origin);

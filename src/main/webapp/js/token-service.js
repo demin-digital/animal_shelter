@@ -3,7 +3,13 @@ import CONFIG from './config.js';
 
 axios.defaults.baseURL = CONFIG.SERVER_URL;
 
-class RefreshTokenService {
+class TokenService {
+    // Сохранение токенов
+    static saveTokens(tokens) {
+        sessionStorage.setItem('access_token', tokens.access_token);
+        sessionStorage.setItem('refresh_token', tokens.refresh_token);
+    }
+    
     // Проверка, истек ли срок действия токена
     static isTokenExpired(token) {
         if (!token) return true;
@@ -77,4 +83,4 @@ class RefreshTokenService {
 }
 
 // Экспортируем класс
-export default RefreshTokenService;
+export default TokenService;

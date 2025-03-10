@@ -36,54 +36,6 @@ class AuthService {
         }
     }
 
-    // Проверка, истек ли срок действия токена
-    static isTokenExpired(token) {
-        if (!token) return true;
-
-        try {
-            const payload = JSON.parse(atob(token.split('.')[1])); // Декодируем payload токена
-            const exp = payload.exp; // Время истечения токена (в секундах)
-            const now = Math.floor(Date.now() / 1000); // Текущее время (в секундах)
-
-            return now >= exp; // Токен истек, если текущее время больше времени истечения
-        } catch (error) {
-            console.error("Error decoding token:", error);
-            return true; // Если токен некорректен, считаем его истекшим
-        }
-    }
-
-    // Обновление токенов с использованием refresh token
-    static async refreshTokens() {
-        const refreshToken = window.sessionStorage.getItem(CONFIG.REFRESH_TOKEN_KEY);
-
-        if (!refreshToken) {
-            console.error("Refresh token not found.");
-            throw new Error("Refresh token not found.");
-        }
-
-        let payload = new URLSearchParams();
-        payload.append('grant_type', 'refresh_token');
-        payload.append('refresh_token', refreshToken);
-
-        try {
-            const response = await axios.post('/oauth2/token', payload, {
-                headers: {
-                    'Authorization': CONFIG.AUTH_HEADER_VALUE
-                }
-            });
-
-            // Сохранение нового access token и refresh token
-            window.sessionStorage.setItem(CONFIG.ACCESS_TOKEN_KEY, response.data.access_token);
-            window.sessionStorage.setItem(CONFIG.REFRESH_TOKEN_KEY, response.data.refresh_token);
-            console.log("Tokens refreshed:", response.data);
-
-            return response.data;
-        } catch (error) {
-            console.error("Error refreshing tokens:", error);
-            throw error;
-        }
-    }
-
     // Обработка авторизационного кода и получение токенов
     static async handleAuthorization() {
         const code = AuthService.getAuthorizationCode();
@@ -102,42 +54,6 @@ class AuthService {
         }
     }
 }
-
-// Добавляем интерцепторы Axios
-axios.interceptors.request.use(async (config) => {
-    const accessToken = window.sessionStorage.getItem(CONFIG.ACCESS_TOKEN_KEY);
-
-    if (accessToken) {
-        if (AuthService.isTokenExpired(accessToken)) {
-            try {
-                await AuthService.refreshTokens(); // Обновляем токен, если он истек
-                const newAccessToken = window.sessionStorage.getItem(CONFIG.ACCESS_TOKEN_KEY);
-                config.headers['Authorization'] = `Bearer ${newAccessToken}`; // Обновляем заголовок
-            } catch (error) {
-                console.error("Failed to refresh token:", error);
-                // Перенаправляем на страницу логина, если не удалось обновить токен
-                window.location.href = "/login";
-                return Promise.reject(error);
-            }
-        } else {
-            config.headers['Authorization'] = `Bearer ${accessToken}`; // Используем текущий токен
-        }
-    }
-
-    return config;
-}, (error) => {
-    return Promise.reject(error);
-});
-
-axios.interceptors.response.use((response) => {
-    return response;
-}, (error) => {
-    if (error.response && error.response.status === 401) {
-        // Перенаправляем на страницу логина, если токен недействителен
-        window.location.href = "/login";
-    }
-    return Promise.reject(error);
-});
 
 // Автоматически вызываем обработку кода при загрузке страницы
 document.addEventListener("DOMContentLoaded", () => {

@@ -748,3 +748,15 @@ form select:placeholder {
   text-decoration: underline;
   cursor: pointer;
 }
+
+/* Страница избранное */
+.title_top_favorite {
+  font-family: Outfit, sans-serif;
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 16px;
+  letter-spacing: 0em;
+  color: #000000;
+  text-align: center;
+  margin-top: 66px;
+}

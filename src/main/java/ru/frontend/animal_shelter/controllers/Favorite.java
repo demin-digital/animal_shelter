@@ -4,11 +4,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class SignIn {
-
-    @GetMapping(value = "/sign-in")
-    public String showSignIn() {
-        return "signin";
+public class Favorite {
+    @GetMapping(value = "/favorite")
+    public String showFavoritePage() {
+        return "favorite";
     }
-
 }

@@ -9,7 +9,7 @@ class FavoriteService {
         try {
             const token = TokenService.getRSToken(); // Получаем сохраненный токен
             const access_token = await TokenService.checkAndRefreshToken();
-            
+
             if (!token) {
                 console.warn("Токен отсутствует!");
                 return [];
@@ -20,7 +20,7 @@ class FavoriteService {
             const response = await axios.get("/favorites/user", {
                 headers: {
                     "token": token,
-                    'Authorization': `Bearer ${access_token}`,
+                    'Authorization': `Bearer ${access_token}`
                 }
             });
 
@@ -41,6 +41,8 @@ class FavoriteService {
 
     // Метод для удаления из избранного
     static async removeFromFavorites(petId) {
+        const access_token = await TokenService.checkAndRefreshToken();
+        
         try {
             const token = TokenService.getRSToken(); // Получаем сохраненный токен
             if (!token) {
@@ -51,7 +53,9 @@ class FavoriteService {
             console.log("Используемый токен:", token);
 
             const response = await axios.delete(`/favorites/remove?petId=${petId}`, {
-                headers: { "token": token }
+                headers: { "token": token,
+                    'Authorization': `Bearer ${access_token}`
+                 }
             });
 
             console.log("Статус ответа:", response.status);

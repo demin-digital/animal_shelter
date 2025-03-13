@@ -175,6 +175,26 @@
                     vaccinated.innerHTML = `<strong>Вакцинирован:</strong> ` + petData.vaccinated;
                     cardBody.appendChild(vaccinated);
 
+                    // Создаем кнопку "Убрать из избранного"
+                    const removeButton = document.createElement("button");
+                    removeButton.className = "btn btn-danger mt-3";
+                    removeButton.textContent = "Убрать из избранного";
+                    removeButton.addEventListener("click", async () => {
+                        try {
+                            const result = await FavoriteService.removeFromFavorites(pet.id);
+                            if (result) {
+                                console.log("Питомец удален из избранного:", result);
+                                // Удаляем карточку из DOM
+                                card.remove();
+                            } else {
+                                console.error("Не удалось удалить питомца из избранного");
+                            }
+                        } catch (error) {
+                            console.error("Ошибка при удалении из избранного:", error);
+                        }
+                    });
+                    cardBody.appendChild(removeButton);
+
                     card.appendChild(cardBody);
                     container.appendChild(card);
 

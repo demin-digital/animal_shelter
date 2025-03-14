@@ -10,4 +10,3 @@ public class SignUp {
         return "sign-up";
     }
 }
-

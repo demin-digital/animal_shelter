@@ -293,7 +293,7 @@
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <form id="search-form">
+                                <form id="search-form" class="home-page-form">
                                     <!-- Форма -->
                                     <div>
                                         <select id="city-select" class="search-city" placeholder="Город">
@@ -303,8 +303,8 @@
                                     <div>
                                         <input type="text" id="breed-input" class="search-breed" placeholder="Порода Собаки">
                                     </div>
-                                    <button type="submit" class="search-button">Поиск</button>
-                                    <a class="catalog" href="#">Посмотреть всех собак</a>
+                                    <button type="submit" class="search-p-button">Поиск</button>
+                                    <a class="catalog" href="/search">Посмотреть всех собак</a>
                                 </form>
                                 <!-- TODO: убрать после отладки, Контейнер для отображения результатов -->
                                 <div id="search-results"></div>

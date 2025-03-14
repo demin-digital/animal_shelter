@@ -80,26 +80,42 @@ class SearchService {
     static displaySearchResults(pets) {
         const resultsContainer = document.getElementById('search-results');
         resultsContainer.innerHTML = ''; // Очищаем предыдущие результаты
-
+    
         if (pets.length === 0) {
             resultsContainer.innerHTML = '<p>Ничего не найдено.</p>';
             return;
         }
-
-        const list = document.createElement('ul');
+    
         pets.forEach(pet => {
-            const item = document.createElement('li');
-            item.innerHTML = `<p style="color: green;">Кличка: ${pet.nickname}, Порода: ${pet.breed}, Город: ${pet.cityId}<p>`;
-            list.appendChild(item);
+            const col = document.createElement('div');
+            col.className = 'col';
+    
+            const card = document.createElement('div');
+            card.className = 'card h-100';
+    
+            const cardBody = document.createElement('div');
+            cardBody.className = 'card-body';
+    
+            const cardTitle = document.createElement('h5');
+            cardTitle.className = 'card-title';
+            cardTitle.textContent = pet.nickname;
+    
+            const cardText = document.createElement('p');
+            cardText.className = 'card-text';
+            cardText.textContent = `Порода: ` + pet.breed +`, Город: ` + pet.cityId;
+    
+            cardBody.appendChild(cardTitle);
+            cardBody.appendChild(cardText);
+            card.appendChild(cardBody);
+            col.appendChild(card);
+            resultsContainer.appendChild(col);
         });
-
-        resultsContainer.appendChild(list);
     }
 
     // Функция для отображения ошибки
     static displayError(message) {
         const resultsContainer = document.getElementById('search-results');
-        resultsContainer.innerHTML = `<p style="color: red;">Ошибка: ${message}</p>`;
+        resultsContainer.innerHTML = `<p style="color: red;">Ошибка:` + message + `</p>`;
     }
 
     // Инициализация обработчика формы поиска

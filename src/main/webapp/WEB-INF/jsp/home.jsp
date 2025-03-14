@@ -304,7 +304,7 @@
                                         <input type="text" id="breed-input" class="search-breed" placeholder="Порода Собаки">
                                     </div>
                                     <button type="submit" class="search-p-button">Поиск</button>
-                                    <a class="catalog" href="#">Посмотреть всех собак</a>
+                                    <a class="catalog" href="/search">Посмотреть всех собак</a>
                                 </form>
                                 <!-- TODO: убрать после отладки, Контейнер для отображения результатов -->
                                 <div id="search-results"></div>

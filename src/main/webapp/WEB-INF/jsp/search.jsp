@@ -48,15 +48,17 @@
         <div class="title_top" style="z-index: 3; overflow: visible;">
             <p class="title_top_favorite">Поиск питомцев</p>
         </div>
-        <div class="search-container" id="search-form">
-            <select id="city-select" class="search-city" placeholder="Город">
-                <option value="" disabled selected>Выберите город</option>
-            </select>
-            <input type="text" id="breed-input" class="search-breed" placeholder="Порода Собаки">
-            <button type="submit" class="search-p-button">Поиск</button>
+        <div class="search-container">
+            <form id="search-form" class="search-page-form">
+                <select id="city-select" class="search-city" placeholder="Город">
+                    <option value="" disabled selected>Выберите город</option>
+                </select>
+                <input type="text" id="breed-input" class="search-breed" placeholder="Порода Собаки">
+                <button type="submit" class="search-p-button">Поиск</button>
+            </form>
         </div>
         <div class="container mt-4">
-            <div id="search-results" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            <div id="search-results" class="row row-cols-1 row-cols-md-2 row-cols-lg-5 g-4">
                 <!-- Карточки будут добавляться сюда -->
             </div>
         </div>

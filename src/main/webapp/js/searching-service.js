@@ -42,7 +42,7 @@ class SearchService {
     }
 
     // Функция для поиска питомцев
-    static async searchPets(cityId, breed) {
+    static async searchPets(cityId, breed, petId) {
         try {
             // Проверяем и обновляем токен
             const access_token = await TokenService.checkAndRefreshToken();
@@ -51,6 +51,7 @@ class SearchService {
             const url = new URL(`${CONFIG.BACKEND_URI}/pet/search`, window.location.origin);
             if (cityId) url.searchParams.append('cityId', cityId);
             if (breed) url.searchParams.append('breed', breed);
+            if (petId) url.searchParams.append('petId', petId);
 
             // Отправляем GET-запрос на сервер с токеном
             const response = await fetch(url, {
@@ -71,7 +72,7 @@ class SearchService {
 
             // Если ошибка связана с авторизацией, перенаправляем на страницу логина
             if (error.message.includes('Необходимо авторизоваться') || error.message.includes('Не удалось обновить токен')) {
-               // window.location.href = '/login'; TODO: убрать на финальной стадии проекта, либо сделать переадресацию на страницу логина
+                // window.location.href = '/login'; TODO: убрать на финальной стадии проекта, либо сделать переадресацию на страницу логина
             }
         }
     }
@@ -80,35 +81,43 @@ class SearchService {
     static displaySearchResults(pets) {
         const resultsContainer = document.getElementById('search-results');
         resultsContainer.innerHTML = ''; // Очищаем предыдущие результаты
-    
+
         if (pets.length === 0) {
             resultsContainer.innerHTML = '<p>Ничего не найдено.</p>';
             return;
         }
-    
+
         pets.forEach(pet => {
             const col = document.createElement('div');
             col.className = 'col';
-    
+
             const card = document.createElement('div');
             card.className = 'card h-100';
-    
+            card.dataset.petId = pet.id;  // Сохраняем ID собаки в dataset
+            card.dataset.cityId = pet.cityId; // Сохраняем ID города
+
             const cardBody = document.createElement('div');
             cardBody.className = 'card-body';
-    
+
             const cardTitle = document.createElement('h5');
             cardTitle.className = 'card-title';
             cardTitle.textContent = pet.nickname;
-    
+
             const cardText = document.createElement('p');
             cardText.className = 'card-text';
-            cardText.textContent = `Порода: ` + pet.breed +`, Город: ` + pet.cityId;
-    
+            cardText.textContent = `Порода: ` + pet.breed + `, Город: ` + pet.cityId;
+
             cardBody.appendChild(cardTitle);
             cardBody.appendChild(cardText);
             card.appendChild(cardBody);
             col.appendChild(card);
             resultsContainer.appendChild(col);
+
+            // Добавляем обработчик клика
+            card.addEventListener('click', () => {
+                window.location.href = `details?petId=${pet.id}`;
+            });
+
         });
     }
 

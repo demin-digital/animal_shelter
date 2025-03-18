@@ -138,7 +138,7 @@
                         </div>
                         <img src="static/png/card-dog.png" class="card-img-top">
                         <div class="fv-card-body">
-                            <h3 class="fv-card-title">` + petData.nickname + `</h3>
+                            <p class="fv-card-title"><strong>` + petData.nickname + `</strong></p>
                             <p class="fv-card-text"><strong>Порода: </strong>` + petData.breed + `</p>
                             <p class="fv-card-text"><strong>Возраст: </strong>` + petData.age + `</p>
                             <p class="fv-card-text"><strong>Город: </strong>` + petData.cityName + `</p>

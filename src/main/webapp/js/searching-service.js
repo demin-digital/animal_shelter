@@ -1,6 +1,7 @@
 import axios from 'https://cdn.skypack.dev/axios';
 import CONFIG from './config.js';
 import TokenService from './token-service.js';
+import FavoriteService from './favorite-service.js';
 
 axios.defaults.baseURL = CONFIG.SERVER_URL;
 
@@ -81,42 +82,42 @@ class SearchService {
     static displaySearchResults(pets) {
         const resultsContainer = document.getElementById('search-results');
         resultsContainer.innerHTML = ''; // Очищаем предыдущие результаты
-    
+
         if (pets.length === 0) {
             resultsContainer.innerHTML = '<p>Ничего не найдено.</p>';
             return;
         }
-    
+
         pets.forEach(pet => {
             const col = document.createElement('div');
             col.className = 'col';
-    
+
             const card = document.createElement('div');
             card.className = 'card h-100';
             card.dataset.petId = pet.id;  // Сохраняем ID собаки в dataset чтобы дальше отправлять в сервисы
             card.dataset.cityId = pet.cityId; // Сохраняем ID города
-    
+
             const cardBody = document.createElement('div');
             cardBody.className = 'card-body';
-    
+
             const cardTitle = document.createElement('h5');
             cardTitle.className = 'card-title';
             cardTitle.textContent = pet.nickname;
-    
+
             const cardText = document.createElement('p');
             cardText.className = 'card-text';
             cardText.textContent = `Порода: ` + pet.breed + `, Город: ` + pet.cityName;
-    
+
             cardBody.appendChild(cardTitle);
             cardBody.appendChild(cardText);
             card.appendChild(cardBody);
             col.appendChild(card);
-    
+
             // Создаем кнопку "Избранное"
             const favButton = document.createElement('div');
             favButton.className = 'favorite-icon';
             favButton.id = `fav-${pet.id}`;  // Присваиваем ID для поиска элемента
-            
+
             favButton.innerHTML = `
                 <div class="icon-wrapper">
                     <svg class="inactive-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="16" fill="none" viewBox="0 0 18 16" stroke="currentColor">
@@ -124,15 +125,15 @@ class SearchService {
                     </svg>
                 </div>
             `;
-    
+
             card.appendChild(favButton);
             resultsContainer.appendChild(col);
-    
+
             // Добавляем обработчик клика на всю карточку (переход в детальную)
             card.addEventListener('click', () => {
                 window.location.href = `details?petId=${pet.id}`;
             });
-    
+
             // Добавляем обработчик клика на избранное
             favButton.addEventListener('click', (event) => {
                 event.stopPropagation();
@@ -140,10 +141,15 @@ class SearchService {
             });
         });
     }
-    
-    static toggleFavorite(petId) {
+
+    static async toggleFavorite(petId) {
         const favIcon = document.getElementById(`fav-${petId}`);
         if (favIcon) {
+            try {
+                await FavoriteService.addToFavorites(petId);
+            } catch (error) {
+                return;
+            }
             favIcon.classList.toggle("checked");
         }
     }

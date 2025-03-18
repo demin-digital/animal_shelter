@@ -793,9 +793,20 @@ h1 {
   line-height: 18px;
   text-align: center;
   color: #000000;
-  margin-top: 38px;
+  text-transform: capitalize;
+  margin-top: 2px;
+}
+
+.fv-card-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: 25px;
+  font-weight: 400;
+  line-height: 18px;
+  text-align: center;
+  color: #000000;
   text-transform: capitalize;
   margin-top: 0px;
+  margin-bottom: 15px;
 }
 
 #favorite-list {

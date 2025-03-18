@@ -110,6 +110,7 @@
                         nickname: safeValue(pet.nickname),
                         breed: safeValue(pet.breed),
                         cityId: safeValue(pet.cityId),
+                        cityName: safeValue(pet.cityName),
                         age: safeValue(pet.age),
                         color: safeValue(pet.color),
                         gender: safeValue(pet.gender),
@@ -140,6 +141,7 @@
                             <h3 class="fv-card-title">` + petData.nickname + `</h3>
                             <p class="fv-card-text"><strong>Порода: </strong>` + petData.breed + `</p>
                             <p class="fv-card-text"><strong>Возраст: </strong>` + petData.age + `</p>
+                            <p class="fv-card-text"><strong>Город: </strong>` + petData.cityName + `</p>
                             <p class="fv-card-text"><strong>Цвет: </strong>` + petData.color + `</p>
                             <p class="fv-card-text"><strong>Размер: </strong>` + petData.size + `</p>
                             <p class="fv-card-text"><strong>Стерилизован: </strong>` + petData.sterilized + `</p>

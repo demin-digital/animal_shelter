@@ -105,7 +105,7 @@ class SearchService {
 
             const cardText = document.createElement('p');
             cardText.className = 'card-text';
-            cardText.textContent = `Порода: ` + pet.breed + `, Город: ` + pet.cityId;
+            cardText.textContent = `Порода: ` + pet.breed + `, Город: ` + pet.cityName;
 
             cardBody.appendChild(cardTitle);
             cardBody.appendChild(cardText);

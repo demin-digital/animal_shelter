@@ -31,7 +31,7 @@ class PetDetailsService {
                 <p><strong>Пол:</strong> ${pet.gender}</p>
                 <p><strong>Размер:</strong> ${pet.size}</p>
                 <p><strong>Цвет:</strong> ${pet.color}</p>
-                <p><strong>Город ID:</strong> ${pet.cityId}</p>
+                <p><strong>Город:</strong> ${pet.cityName}</p>
                 <p><strong>Вакцинирован:</strong> ${pet.vaccinated ? 'Да' : 'Нет'}</p>
                 <p><strong>Стерилизован:</strong> ${pet.sterilized ? 'Да' : 'Нет'}</p>
             `;

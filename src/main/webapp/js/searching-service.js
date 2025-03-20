@@ -3,7 +3,7 @@ import CONFIG from './config.js';
 import TokenService from './token-service.js';
 import FavoriteService from './favorite-service.js';
 
-axios.defaults.baseURL = CONFIG.SERVER_URL;
+axios.defaults.baseURL = CONFIG.BACKEND_URI;
 
 class SearchService {
     // Функция для загрузки списка городов
@@ -122,11 +122,11 @@ class SearchService {
             col.appendChild(card);
 
             // Если isFavorite = true, сразу делаем кнопку активной
-            const isChecked = pet.isFavorite ? "checked" : "";
+            const isFavorite = pet.isFavorite ? "checked" : "";
 
             // Создаем кнопку "Избранное"
             const favButton = document.createElement('div');
-            favButton.className = 'favorite-icon ' + isChecked;
+            favButton.className = 'favorite-icon ' + isFavorite;
             favButton.id = `fav-${pet.id}`;  // Присваиваем ID для поиска элемента
 
             favButton.innerHTML = `
@@ -155,14 +155,21 @@ class SearchService {
 
     static async toggleFavorite(petId) {
         const favIcon = document.getElementById(`fav-${petId}`);
-        if (favIcon) {
-            try {
+        if (!favIcon) return;
+    
+        const isCurrentlyFavorite = favIcon.classList.contains("checked");
+    
+        try {
+            if (isCurrentlyFavorite) {
+                await FavoriteService.removeFromFavorites(petId);
+            } else {
                 await FavoriteService.addToFavorites(petId);
-                favIcon.classList.toggle("checked");
-            } catch (error) {
-                console.error('Ошибка при добавлении в избранное:', error);
-                return;
             }
+    
+            // Переключаем класс в зависимости от нового состояния
+            favIcon.classList.toggle("checked", !isCurrentlyFavorite);
+        } catch (error) {
+            console.error('Ошибка при изменении избранного:', error);
         }
     }
 

@@ -47,6 +47,7 @@ class SearchService {
         try {
             // Проверяем и обновляем токен
             const access_token = await TokenService.checkAndRefreshToken();
+            const token = TokenService.getRSToken();
 
             // Формируем URL с параметрами поиска
             const url = new URL(`${CONFIG.BACKEND_URI}/pet/search`, window.location.origin);
@@ -58,6 +59,7 @@ class SearchService {
             const response = await fetch(url, {
                 headers: {
                     'Authorization': `Bearer ${access_token}`,
+                    'token': token
                 },
             });
 
@@ -93,29 +95,38 @@ class SearchService {
             col.className = 'col';
 
             const card = document.createElement('div');
-            card.className = 'card h-100';
+            card.className = 'card';
+
+            const img = document.createElement('img');
+            img.className = 'card-img-top';
+            img.src = pet.imageUrl ? pet.imageUrl : 'static/png/card-dog.png'; 
+        
             card.dataset.petId = pet.id;  // Сохраняем ID собаки в dataset чтобы дальше отправлять в сервисы
             card.dataset.cityId = pet.cityId; // Сохраняем ID города
 
             const cardBody = document.createElement('div');
-            cardBody.className = 'card-body';
+            cardBody.className = 'sp-card-body';
 
             const cardTitle = document.createElement('h5');
-            cardTitle.className = 'card-title';
+            cardTitle.className = 'sp-card-title';
             cardTitle.textContent = pet.nickname;
 
             const cardText = document.createElement('p');
-            cardText.className = 'card-text';
-            cardText.textContent = `Порода: ` + pet.breed + `, Город: ` + pet.cityName;
+            cardText.className = 'sp-card-text';
+            cardText.innerHTML = pet.breed + `, <br>` + pet.cityName;
 
             cardBody.appendChild(cardTitle);
             cardBody.appendChild(cardText);
+            card.appendChild(img);
             card.appendChild(cardBody);
             col.appendChild(card);
 
+            // Если isFavorite = true, сразу делаем кнопку активной
+            const isChecked = pet.isFavorite ? "checked" : "";
+
             // Создаем кнопку "Избранное"
             const favButton = document.createElement('div');
-            favButton.className = 'favorite-icon';
+            favButton.className = 'favorite-icon ' + isChecked;
             favButton.id = `fav-${pet.id}`;  // Присваиваем ID для поиска элемента
 
             favButton.innerHTML = `
@@ -147,10 +158,11 @@ class SearchService {
         if (favIcon) {
             try {
                 await FavoriteService.addToFavorites(petId);
+                favIcon.classList.toggle("checked");
             } catch (error) {
+                console.error('Ошибка при добавлении в избранное:', error);
                 return;
             }
-            favIcon.classList.toggle("checked");
         }
     }
 

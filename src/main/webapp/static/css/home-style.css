@@ -793,9 +793,20 @@ h1 {
   line-height: 18px;
   text-align: center;
   color: #000000;
-  margin-top: 38px;
+  text-transform: capitalize;
+  margin-top: 2px;
+}
+
+.fv-card-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: 25px;
+  font-weight: 400;
+  line-height: 18px;
+  text-align: center;
+  color: #000000;
   text-transform: capitalize;
   margin-top: 0px;
+  margin-bottom: 15px;
 }
 
 #favorite-list {
@@ -913,6 +924,37 @@ h1 {
   cursor: pointer;
   border: none;
   margin-bottom: 0;
+}
+
+.card .sp-card-body {
+  /* width: 200px; */
+  /* height: 99px; */
+  margin-top: 15px;
+  padding-top: 12px;
+  text-align: center;
+}
+
+.card .sp-card-body .sp-card-title {
+  font-family: Outfit, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 16px;
+  text-align: center;
+  color: #000000;
+  text-transform: uppercase;
+  margin-bottom: 22px;
+
+}
+
+.card .sp-card-body p.sp-card-text {
+  font-family: 'Outfit', sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 18px;
+  text-align: center;
+  color: #000000;
+  text-transform: capitalize;
+  margin-top: 0px;
 }
 
 /* Страница детальной информации  */

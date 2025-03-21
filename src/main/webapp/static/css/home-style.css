@@ -596,15 +596,15 @@ h1 {
 }
 
 .bottom_sign_up {
-  width: 1065px;
-  height: 681px;
-  margin-left: 189px;
+  width: 100%;
+  max-width: 1065px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  top: -25px;
-  overflow: visible;
+  position: relative;
+  gap: 20px;
+  padding: 40px 20px;
 }
 
 .title_bottom_sign_up {
@@ -682,12 +682,44 @@ h1 {
 
 .input_sign_up {
   margin-top: 20px;
-  margin-left: -45px;
 }
 
 .input_sign_up input {
   width: 295px;
   height: 44px;
+}
+
+.oauth {
+  font-family: Roboto;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 16px;
+  letter-spacing: 0em;
+  text-align: center;
+  text-transform: uppercase;
+  color: #000000;
+  margin-top: 40px;
+  margin-bottom: 0px;
+}
+
+
+.login_oauth{
+  width: 296px;
+  height: 48px;
+  border-radius: 40px;
+  background-color: #000000;
+  color: #FFEB00;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-family: Roboto, sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 16px;
+  text-align: center;
+  cursor: pointer;
+  border: none;
+  /* margin-top: 22px; */
+  margin-bottom: 22px;
 }
 
 .registration {
@@ -710,7 +742,7 @@ h1 {
   color: #000000;
   text-transform: uppercase;
   text-align: center;
-  margin-top: 31px;
+  margin-top: 22px;
   margin-bottom: 0px;
 }
 
@@ -730,7 +762,9 @@ h1 {
   cursor: pointer;
   border: none;
   margin-top: 22px;
+  margin-bottom: 22px;
 }
+
 .title_policy{
   font-family: Roboto, sans-serif;
   font-size: 16px;
@@ -749,7 +783,80 @@ h1 {
   cursor: pointer;
 }
 
+.input_sign_up {
+  width: 296px;
+  height: 235px;
+  margin-top: 30px;
+}
+
+.input_sign_up input {
+  box-sizing: border-box;
+  width: 296px;
+  height: 44px;
+  border: 2px solid #ACACAC;
+  /* Толщина и цвет контура */
+  border-radius: 10px;
+  /* Радиус скругления углов */
+  background-color: transparent;
+  box-sizing: border-box;
+  margin-bottom: 25px;
+  text-align: left;
+  padding-left: 19px;
+}
+
+.input_sign_up input:focus {
+  outline: #000000;
+  border: 2px solid #000000;
+}
+
+.input_sign_up input:placeholder {
+  font-family: Roboto, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 16px;
+  letter-spacing: 0em;
+  color: #000000;
+  text-align: left;
+  padding-left: 19px;
+  padding-top: 14px;
+}
+
+.input_sign_up select {
+  box-sizing: border-box;
+  width: 255px;
+  height: 44px;
+  appearance: none;
+  color: #ACACAC;
+  border: 2px solid #ACACAC;
+  /* Толщина и цвет контура */
+  border-radius: 10px;
+  /* Радиус скругления углов */
+  background-color: transparent;
+  box-sizing: border-box;
+  margin-bottom: 25px;
+  text-align: left;
+  padding-left: 19px;
+}
+
+.input_sign_up select:focus {
+  outline: #000000;
+  border: 2px solid #000000;
+}
+
+.input_sign_up select:placeholder {
+  font-family: Roboto, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 16px;
+  letter-spacing: 0em;
+  color: #000000;
+  text-align: left;
+  padding-left: 19px;
+  padding-top: 14px;
+}
+
 /* Страница избранное */
+
 .title_top_favorite {
   font-family: Outfit, sans-serif;
   font-size: 36px;

@@ -36,8 +36,8 @@
                                 <a class="nav-link" href="#">about us</a>
                             </li>
                             <li class="nav-item">
-                                <a class="navbar-btn" href="#">
-                                    <img src="static/png/profile.png" alt="Profile">
+                                <a class="navbar-btn" href="/sign-up" ">
+                                    <img src=" static/png/profile.png" alt="Profile">
                                 </a>
                             </li>
                         </ul>
@@ -64,8 +64,9 @@
         </div>
 
         <script type="module">
-           
+
         </script>
-            <script src="js/searching-service.js" type="module"></script>
+        <script src="js/searching-service.js" type="module"></script>
     </body>
+
     </html>

@@ -83,7 +83,7 @@
                 </form>
                 <div class="oauth">
                     <p class="text_oauth">или</p>
-                    <button type="submit" class="login_oauth">Войти по отпечатку носа</button>
+                    <button type="submit" class="login_oauth" onclick="LoginService.login()">Войти по отпечатку носа</button>
                 </div>
                 <div class="registration">
                     <p class="title_registration">Нет аккаунта?</p>
@@ -112,7 +112,7 @@
                             console.log("Успешная аутентификация:", response);
 
                             // Перенаправляем пользователя на главную страницу или другую страницу
-                            window.location.href = "/";
+                            window.location.href = "/my-account";
                         } catch (error) {
                             console.error("Ошибка аутентификации:", error);
                             alert("Ошибка аутентификации. Проверьте логин и пароль.");
@@ -124,8 +124,7 @@
             });
         </script>
 
-        <script src="js/auth-services.js" type="module">
-        </script>
+        <script src="js/auth-services.js" type="module"></script>
 
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"

@@ -23,32 +23,32 @@
                 <div class="container-fluid" id="navbar">
                     <a class="navbar-brand" href="/">BOWWOW</a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
-                    aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarText">
-                <ul class="navbar-nav ms-auto d-flex align-items-center">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">rehoming</a>
-                    <li class="nav-item text-center">
-                        <a class="nav-link" href="#">dog advice</a>
-                    </li>
-                    <li class="nav-item text-center">
-                        <a class="nav-link" href="#">how we help</a>
-                    </li>
-                    <li class="nav-item text-center">
-                        <a class="nav-link" href="#">support us</a>
-                    </li>
-                    <li class="nav-item text-center">
-                        <a class="nav-link" href="#">about us</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="navbar-btn" href="#">
-                            <img src="static/png/profile.png" alt="Profile">
-                        </a>
-                    </li>
-                </ul>
-                </div>
+                        aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarText">
+                        <ul class="navbar-nav ms-auto d-flex align-items-center">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">rehoming</a>
+                            <li class="nav-item text-center">
+                                <a class="nav-link" href="#">dog advice</a>
+                            </li>
+                            <li class="nav-item text-center">
+                                <a class="nav-link" href="#">how we help</a>
+                            </li>
+                            <li class="nav-item text-center">
+                                <a class="nav-link" href="#">support us</a>
+                            </li>
+                            <li class="nav-item text-center">
+                                <a class="nav-link" href="#">about us</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="navbar-btn" href="#">
+                                    <img src="static/png/profile.png" alt="Profile">
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
             </nav>
         </header>
 
@@ -66,26 +66,33 @@
             <div class="container bottom_sign_up position-relative">
                 <div class="title_bottom">
                     <p class="title_bottom_sign_up">Добро Пожаловать!</p>
-                    <p class="text_bottom_sign_up">Войдя в аккаунт, вы получаете доступ к избранному, а также дополнительным функциям</p>
-                    <p class="info_bottom_sign_up">Если вы не заходили больше года, вам необходимо заново создать аккаунт</p>
-                    <p class="login_bottom_sign_up">Войти через почту</p>
+                    <p class="text_bottom_sign_up">Войдя в аккаунт, вы получаете доступ к избранному, а также
+                        дополнительным функциям</p>
+                    <p class="info_bottom_sign_up">Если вы не заходили больше года, вам необходимо заново создать
+                        аккаунт</p>
+                    <p class="login_bottom_sign_up">Войти через логин</p>
                 </div>
                 <form class="input_sign_up" id="login-form">
                     <div>
-                      <input type="login" id="login" name="login" placeholder="Логин" required>
+                        <input type="login" id="login" name="login" placeholder="Логин" required>
                     </div>
                     <div>
-                      <input type="password" id="password" name="password" placeholder="Пароль" required>
+                        <input type="password" id="password" name="password" placeholder="Пароль" required>
                     </div>
                     <button type="submit" class="login">Войти</button>
-                  </form>
-                  <div class="registration">
+                </form>
+                <div class="oauth">
+                    <p class="text_oauth">или</p>
+                    <button type="submit" class="login_oauth">Войти по отпечатку носа</button>
+                </div>
+                <div class="registration">
                     <p class="title_registration">Нет аккаунта?</p>
                     <button type="submit" class="button_registration">зарегистрироваться</button>
-                  </div>
-                  <div class="policy_sign_up">
-                    <p class="title_policy">Ознакомиться с политикой <a href="#" class="privacy-link">конфиденциальности</a> и всякими другими штуками</p>
-                  </div>
+                </div>
+                <div class="policy_sign_up">
+                    <p class="title_policy">Ознакомиться с политикой <a href="#"
+                            class="privacy-link">конфиденциальности</a> и всякими другими штуками</p>
+                </div>
             </div>
         </section>
 
@@ -94,16 +101,16 @@
             document.addEventListener('DOMContentLoaded', () => {
                 const form = document.getElementById('login-form');
                 if (form) {
-                    form.addEventListener('submit', async function(event) {
+                    form.addEventListener('submit', async function (event) {
                         event.preventDefault(); // Отменяем стандартное поведение формы
-        
+
                         const username = document.getElementById('login').value;
                         const password = document.getElementById('password').value;
-        
+
                         try {
                             const response = await LoginService.authenticate(username, password);
                             console.log("Успешная аутентификация:", response);
-        
+
                             // Перенаправляем пользователя на главную страницу или другую страницу
                             window.location.href = "/";
                         } catch (error) {
@@ -118,11 +125,12 @@
         </script>
 
         <script src="js/auth-services.js" type="module">
-             </script>
+        </script>
 
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
             crossorigin="anonymous"></script>
-    </body>    
+    </body>
+
     </html>

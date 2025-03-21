@@ -45,7 +45,7 @@ class AuthService {
             try {
                 await this.getTokens(code);
                 window.history.replaceState({}, document.title, window.location.pathname);
-                window.location.href = "/"; // Перенаправляем на главную страницу
+                window.location.href = "/my-account"; // Перенаправляем на главную страницу
             } catch (error) {
                 console.error("Error handling authorization:", error);
             }

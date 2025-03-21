@@ -51,8 +51,9 @@
         </div>
 
         <script>
+            // Отрабатывает только тогда, когда основной скрипт от auth-serivces.js не отработал, чтобы юзер не оставался на странице
             setTimeout(() => {
-                window.location.href = "/"; 
+                window.location.href = "/my-account"; 
             }, 3000);
         </script>
 

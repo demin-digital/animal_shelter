@@ -963,3 +963,73 @@ h1 {
 #pet-details {
     color: #000000; /* Черный цвет текста */
 }
+
+/* My-account page */
+
+.IntroMyAccount {
+  background-color: #FFEB00;
+  height: 276px;
+  width: calc(100% - 40px);
+  margin: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.IntroMyAccount .inner-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: calc(100% - 120px);
+  max-width: 1200px;
+}
+
+.IntroMyAccount .welcome-text {
+  font-size: 30px;
+  font-weight: bold;
+  color: black;
+}
+
+.IntroMyAccount .icon-container {
+  display: flex;
+  gap: 20px;
+}
+
+.IntroMyAccount .icon-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  text-decoration: none;
+  text-align: center; /* Центрируем текст */
+  max-width: 150px; /* Ограничиваем ширину */
+}
+
+.IntroMyAccount .icon-item:hover {
+  opacity: 0.8;
+}
+
+.IntroMyAccount .icon-item img {
+  width: 50px; /* Устанавливаем фиксированный размер */
+  height: 50px;
+  object-fit: contain; /* Подгоняем изображение внутри */
+  background-color: white; /* Цвет фона */
+  border-radius: 50%; /* Делаем круглым */
+  padding: 10px; /* Отступы внутри круга */
+  border: 2px solid #FFA500; /* Оранжевая рамка */
+}
+
+.IntroMyAccount .icon-item span {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 20px;
+  text-align: center;
+  color: black;
+  padding-top: 24px;
+  display: block; /* Делаем блочным, чтобы занимал всю ширину */
+  word-wrap: break-word; /* Перенос слов */
+  text-align: center;
+  max-width: 150px; /* Ограничиваем ширину */
+}

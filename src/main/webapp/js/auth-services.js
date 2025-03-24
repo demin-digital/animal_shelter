@@ -59,6 +59,28 @@ class AuthService {
                sessionStorage.getItem("refresh_token") &&
                sessionStorage.getItem("token");
     }
+
+
+    static logout() {
+        // Удаляем токены из sessionStorage
+        sessionStorage.removeItem("access_token");
+        sessionStorage.removeItem("refresh_token");
+        sessionStorage.removeItem("token");
+
+        // Перенаправляем на страницу входа
+        window.location.href = "/sign-up";
+    }
+
+    static initLogoutButton() {
+        const logoutButton = document.getElementById("logout-btn");
+
+        if (logoutButton) {
+            logoutButton.addEventListener("click", function (event) {
+                event.preventDefault();
+                AuthService.logout();
+            });
+        }
+    }
 }
 
 // Вызываем handleAuthorization() только если это shadow-auth.jsp

@@ -53,6 +53,12 @@ class AuthService {
             console.error("Authorization code not found in URL.");
         }
     }
+
+    static isAuthenticated() {
+        return sessionStorage.getItem("access_token") &&
+               sessionStorage.getItem("refresh_token") &&
+               sessionStorage.getItem("token");
+    }
 }
 
 // Вызываем handleAuthorization() только если это shadow-auth.jsp

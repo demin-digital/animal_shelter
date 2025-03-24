@@ -84,17 +84,11 @@ class AuthService {
 
     static initNavButtonHandler() {
         const navButton = document.querySelector(".navbar-btn");
-
+    
         if (navButton) {
             navButton.addEventListener("click", function (event) {
                 event.preventDefault(); // Отменяем стандартный переход
-
-                if (navButton) {
-                    navButton.addEventListener("click", function (event) {
-                        event.preventDefault();
-                        window.location.href = AuthService.isAuthenticated() ? "/my-account" : "/sign-up";
-                    });
-                }
+                window.location.href = AuthService.isAuthenticated() ? "/my-account" : "/sign-up";
             });
         }
     }

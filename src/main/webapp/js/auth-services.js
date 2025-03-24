@@ -56,8 +56,8 @@ class AuthService {
 
     static isAuthenticated() {
         return sessionStorage.getItem("access_token") &&
-               sessionStorage.getItem("refresh_token") &&
-               sessionStorage.getItem("token");
+            sessionStorage.getItem("refresh_token") &&
+            sessionStorage.getItem("token");
     }
 
 
@@ -81,6 +81,23 @@ class AuthService {
             });
         }
     }
+
+    static initNavButtonHandler() {
+        const navButton = document.querySelector(".navbar-btn");
+
+        if (navButton) {
+            navButton.addEventListener("click", function (event) {
+                event.preventDefault(); // Отменяем стандартный переход
+
+                if (navButton) {
+                    navButton.addEventListener("click", function (event) {
+                        event.preventDefault();
+                        window.location.href = AuthService.isAuthenticated() ? "/my-account" : "/sign-up";
+                    });
+                }
+            });
+        }
+    }
 }
 
 // Вызываем handleAuthorization() только если это shadow-auth.jsp
@@ -89,5 +106,6 @@ document.addEventListener("DOMContentLoaded", () => {
         AuthService.handleAuthorization();
     }
 });
+
 
 export default AuthService;

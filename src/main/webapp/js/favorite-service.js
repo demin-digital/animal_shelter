@@ -1,6 +1,7 @@
 import axios from 'https://cdn.skypack.dev/axios';
 import CONFIG from './config.js';
 import TokenService from './token-service.js';
+import AuthService from './auth-services.js';
 
 axios.defaults.baseURL = "http://localhost:8083"; // Явно задаем API URL
 
@@ -103,5 +104,9 @@ class FavoriteService {
         }
     }
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+    AuthService.initNavButtonHandler();
+});
 
 export default FavoriteService;

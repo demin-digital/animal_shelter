@@ -201,23 +201,6 @@ class SearchService {
             SearchService.searchPets(cityId, breed);
         });
     }
-
-    static initNavButtonHandler() {
-        const navButton = document.querySelector(".navbar-btn");
-        
-        if (navButton) {
-            navButton.addEventListener("click", function (event) {
-                event.preventDefault(); // Отменяем стандартный переход
-
-                if (navButton) {
-                    navButton.addEventListener("click", function (event) {
-                        event.preventDefault();
-                        window.location.href = AuthService.isAuthenticated() ? "/my-account" : "/sign-up";
-                    });
-                }
-            });
-        }
-    }
 }
 
 // Инициализация
@@ -225,5 +208,5 @@ document.addEventListener("DOMContentLoaded", function () {
     SearchService.loadCities(); // Загружаем список городов
     SearchService.handleCitySelection(); // Настраиваем обработчик выбора города
     SearchService.initSearchForm(); // Инициализируем обработчик формы поиска
-    SearchService.initNavButtonHandler(); // Инициализируем обработчик кнопки навигации
+    AuthService.initNavButtonHandler();
 });

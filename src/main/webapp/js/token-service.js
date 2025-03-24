@@ -10,14 +10,14 @@ class TokenService {
         sessionStorage.setItem('refresh_token', tokens.refresh_token);
     }
 
-    static saveRSToken(token){
+    static saveRSToken(token) {
         sessionStorage.setItem(CONFIG.RESOURSE_SERVER_TOKEN_KEY, token.token);
     }
 
-    static getRSToken(){
-            return sessionStorage.getItem(CONFIG.RESOURSE_SERVER_TOKEN_KEY);
+    static getRSToken() {
+        return sessionStorage.getItem(CONFIG.RESOURSE_SERVER_TOKEN_KEY);
     }
-    
+
     // Проверка, истек ли срок действия токена
     static isTokenExpired(token) {
         if (!token) return true;
@@ -48,6 +48,7 @@ class TokenService {
 
         try {
             const response = await axios.post('/oauth2/token', payload, {
+                baseURL: CONFIG.SERVER_URL,
                 headers: {
                     'Authorization': CONFIG.AUTH_HEADER_VALUE,
                 },
@@ -87,6 +88,18 @@ class TokenService {
         }
 
         return accessToken;
+    }
+
+    static async initTokenRefresh() {
+        try {
+            await TokenService.checkAndRefreshToken();
+            console.log("Токен проверен и обновлён (если требовалось).");
+        } catch (error) {
+            console.error("Ошибка при проверке токена:", error);
+            if (window.location.pathname !== "/sign-up" && window.location.pathname !== "/shadow-auth") {
+                window.location.href = "/sign-up";
+            }
+        }
     }
 }
 

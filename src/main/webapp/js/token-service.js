@@ -89,6 +89,18 @@ class TokenService {
 
         return accessToken;
     }
+
+    static async initTokenRefresh() {
+        try {
+            await TokenService.checkAndRefreshToken();
+            console.log("Токен проверен и обновлён (если требовалось).");
+        } catch (error) {
+            console.error("Ошибка при проверке токена:", error);
+            if (window.location.pathname !== "/sign-up" && window.location.pathname !== "/shadow-auth") {
+                window.location.href = "/sign-up";
+            }
+        }
+    }
 }
 
 // Экспортируем класс

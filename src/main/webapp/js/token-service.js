@@ -10,14 +10,14 @@ class TokenService {
         sessionStorage.setItem('refresh_token', tokens.refresh_token);
     }
 
-    static saveRSToken(token){
+    static saveRSToken(token) {
         sessionStorage.setItem(CONFIG.RESOURSE_SERVER_TOKEN_KEY, token.token);
     }
 
-    static getRSToken(){
-            return sessionStorage.getItem(CONFIG.RESOURSE_SERVER_TOKEN_KEY);
+    static getRSToken() {
+        return sessionStorage.getItem(CONFIG.RESOURSE_SERVER_TOKEN_KEY);
     }
-    
+
     // Проверка, истек ли срок действия токена
     static isTokenExpired(token) {
         if (!token) return true;
@@ -48,6 +48,7 @@ class TokenService {
 
         try {
             const response = await axios.post('/oauth2/token', payload, {
+                baseURL: CONFIG.SERVER_URL,
                 headers: {
                     'Authorization': CONFIG.AUTH_HEADER_VALUE,
                 },

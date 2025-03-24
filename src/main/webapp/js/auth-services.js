@@ -56,8 +56,41 @@ class AuthService {
 
     static isAuthenticated() {
         return sessionStorage.getItem("access_token") &&
-               sessionStorage.getItem("refresh_token") &&
-               sessionStorage.getItem("token");
+            sessionStorage.getItem("refresh_token") &&
+            sessionStorage.getItem("token");
+    }
+
+
+    static logout() {
+        // Удаляем токены из sessionStorage
+        sessionStorage.removeItem("access_token");
+        sessionStorage.removeItem("refresh_token");
+        sessionStorage.removeItem("token");
+
+        // Перенаправляем на страницу входа
+        window.location.href = "/sign-up";
+    }
+
+    static initLogoutButton() {
+        const logoutButton = document.getElementById("logout-btn");
+
+        if (logoutButton) {
+            logoutButton.addEventListener("click", function (event) {
+                event.preventDefault();
+                AuthService.logout();
+            });
+        }
+    }
+
+    static initNavButtonHandler() {
+        const navButton = document.querySelector(".navbar-btn");
+    
+        if (navButton) {
+            navButton.addEventListener("click", function (event) {
+                event.preventDefault(); // Отменяем стандартный переход
+                window.location.href = AuthService.isAuthenticated() ? "/my-account" : "/sign-up";
+            });
+        }
     }
 }
 
@@ -67,5 +100,6 @@ document.addEventListener("DOMContentLoaded", () => {
         AuthService.handleAuthorization();
     }
 });
+
 
 export default AuthService;

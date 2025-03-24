@@ -52,7 +52,6 @@
             </nav>
         </header>
 
-        <body>
             <div class="IntroMyAccount">
                 <div class="inner-container">
                     <div class="welcome-text">Зд-Гав-сьте!</div>
@@ -73,14 +72,14 @@
                             <img src="static/png/acc-icon.png" alt="Icon 4">
                             <span>Настройка аккаунта</span>
                         </a>
-                        <a href="#" class="icon-item">
+                        <a href="#" class="icon-item" id="logout-btn">
                             <img src="static/png/logout-icon.png" alt="Icon 5">
                             <span>Выйти из аккаунта</span>
                         </a>
                     </div>
                 </div>
             </div>
-        </body>
+            <script src="js/my-account.js" type="module"></script>
     </body>
 
     </html>

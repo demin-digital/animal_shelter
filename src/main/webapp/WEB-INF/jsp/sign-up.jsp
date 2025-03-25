@@ -83,11 +83,13 @@
                 </form>
                 <div class="oauth">
                     <p class="text_oauth">или</p>
-                    <button type="submit" class="login_oauth" onclick="LoginService.login()">Войти по отпечатку носа</button>
+                    <button type="button" class="login_oauth" onclick="LoginService.login()">Войти по отпечатку носа</button>
                 </div>
                 <div class="registration">
                     <p class="title_registration">Нет аккаунта?</p>
-                    <button type="submit" class="button_registration">зарегистрироваться</button>
+                    <a href="/sign-in">
+                        <button type="button" class="button_registration">зарегистрироваться</button>
+                    </a>
                 </div>
                 <div class="policy_sign_up">
                     <p class="title_policy">Ознакомиться с политикой <a href="#"

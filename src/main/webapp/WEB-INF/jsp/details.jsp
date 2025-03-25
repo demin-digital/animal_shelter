@@ -60,6 +60,11 @@
                         <p>Загрузка...</p>
                     </div>
                 </div>
+                <!-- Блок загрузки изображения -->
+                <div class="mt-3">
+                    <input type="file" id="imageUploadInput" accept="image/*" class="form-control">
+                    <button id="uploadImageButton" class="btn btn-primary mt-2">Загрузить изображение</button>
+                </div>
             </div>
         </div>
     </body>
@@ -76,5 +81,6 @@
             }
         });
     </script>
+    <script src="js/image-service.js" type="module"></script>
 
     </html>

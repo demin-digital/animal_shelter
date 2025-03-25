@@ -100,7 +100,7 @@ class SearchService {
 
             const img = document.createElement('img');
             img.className = 'card-img-top';
-            img.src = pet.imageUrl ? pet.imageUrl : 'static/png/card-dog.png'; 
+            img.src = pet.imageUrl ?  CONFIG.BACKEND_URI + pet.imageUrl : '/static/png/card-dog.png'; 
         
             card.dataset.petId = pet.id;  // Сохраняем ID собаки в dataset чтобы дальше отправлять в сервисы
             card.dataset.cityId = pet.cityId; // Сохраняем ID города

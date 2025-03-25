@@ -57,6 +57,7 @@
 
         <script type="module">
             import FavoriteService from './js/favorite-service.js';
+            import CONFIG from './js/config.js';
 
             document.addEventListener("DOMContentLoaded", async () => {
                 const loadingIndicator = document.getElementById("loading-indicator");
@@ -116,7 +117,8 @@
                         gender: safeValue(pet.gender),
                         size: safeValue(pet.size),
                         sterilized: pet.sterilized ? "Да" : "Нет",
-                        vaccinated: pet.vaccinated ? "Да" : "Нет"
+                        vaccinated: pet.vaccinated ? "Да" : "Нет",
+                        imageUrl: pet.imageUrl ? CONFIG.BACKEND_URI + pet.imageUrl : '/static/png/card-dog.png'
                     };
 
                     console.log(`📌 Данные для карточки ${index}:`, petData); // Логируем данные для карточки
@@ -138,7 +140,7 @@
                                 </svg>
                             </div>
                         </div>
-                        <img src="static/png/card-dog.png" class="card-img-top">
+                        <img src="`+ petData.imageUrl +`" class="card-img-top">
                         <div class="fv-card-body">
                             <p class="fv-card-title"><strong>` + petData.nickname + `</strong></p>
                             <p class="fv-card-text"><strong>Порода: </strong>` + petData.breed + `</p>

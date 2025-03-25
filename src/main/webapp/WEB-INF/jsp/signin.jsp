@@ -80,6 +80,8 @@
                     <p class="title_policy">Ознакомьтесь с <a href="#" class="privacy-link">политикой
                             конфиденциальности</a></p>
                 </div>
+                <a href="/admin" class="d-none" id="admin-link">Админ-панель</a>
+<span id="username-placeholder"></span>
             </div>
         </section>
 
@@ -88,6 +90,25 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
             crossorigin="anonymous"></script>
+        <script type="module"> // TODO: админ панель, убрать после отладки
+            import AuthService from "./js/auth-services.js";
+
+            document.addEventListener("DOMContentLoaded", async () => {
+                const token = sessionStorage.getItem("token");
+                if (!token) return;
+                try {
+                    const user = await AuthService.getProfile(token);
+                    if (user.role === "ROLE_USER") {
+                        document.getElementById("admin-link")?.classList.remove("d-none");
+                    }
+
+                    document.getElementById("username-placeholder").textContent = user.username;
+
+                } catch (e) {
+                    console.error("Ошибка получения профиля:", e);
+                }
+            });
+        </script>
     </body>
 
     </html>

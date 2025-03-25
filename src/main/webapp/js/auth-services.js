@@ -92,6 +92,17 @@ class AuthService {
             });
         }
     }
+
+    static async getProfile(token) {
+        const access_token = sessionStorage.getItem(CONFIG.ACCESS_TOKEN_KEY);
+        const response = await axios.get(`${CONFIG.BACKEND_URI}/profile/info`, {
+            headers: {
+                'Authorization': `Bearer ${access_token}`,
+                'token': token
+            }
+        });
+        return response.data;
+    }
 }
 
 // Вызываем handleAuthorization() только если это shadow-auth.jsp

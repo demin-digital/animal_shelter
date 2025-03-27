@@ -203,6 +203,7 @@ class SearchService {
 
 // Инициализация
 document.addEventListener("DOMContentLoaded", function () {
+    TokenService.setupAxiosInterceptors();
     SearchService.loadCities(); // Загружаем список городов
     SearchService.handleCitySelection(); // Настраиваем обработчик выбора города
     SearchService.initSearchForm(); // Инициализируем обработчик формы поиска

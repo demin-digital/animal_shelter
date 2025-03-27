@@ -60,20 +60,30 @@
             import CONFIG from './js/config.js';
 
             document.addEventListener("DOMContentLoaded", async () => {
-                const loadingIndicator = document.getElementById("loading-indicator");
-                loadingIndicator.style.display = "block"; // Показываем лоадер
+    const loadingIndicator = document.getElementById("loading-indicator");
+    loadingIndicator.style.display = "block";
 
-                try {
-                    const favorites = await FavoriteService.getFavorites();
-                    console.log("Избранные питомцы:", favorites);
+    try {
+        // Шаг 1: Проверяем/обновляем токены
+        await TokenService.initTokenRefresh();
 
-                    renderFavorites(favorites); // Вызываем функцию renderFavorites
-                } catch (error) {
-                    console.error("Ошибка при загрузке избранного:", error);
-                } finally {
-                    loadingIndicator.style.display = "none"; // Скрываем лоадер
-                }
-            });
+        // Шаг 2: Загружаем избранное
+        const favorites = await FavoriteService.getFavorites();
+        console.log("Избранные питомцы:", favorites);
+
+        renderFavorites(favorites);
+
+    } catch (error) {
+        console.error("Ошибка инициализации избранного:", error);
+
+        // Редиректим только здесь
+        if (window.location.pathname !== "/sign-up" && window.location.pathname !== "/shadow-auth") {
+            window.location.href = "/sign-up";
+        }
+    } finally {
+        loadingIndicator.style.display = "none";
+    }
+});
 
             function renderFavorites(favorites) {
                 const container = document.getElementById("favorite-list");

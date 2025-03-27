@@ -65,13 +65,10 @@ class FavoriteService {
             });
 
             // Отправляем GET-запрос на сервер с токеном
-            const response = await fetch(url, {
-                method: 'POST',
+            const response = await axios.post(url, body, {
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${access_token}`,
-                },
-                body: body,
+                }
             });
 
             if (!response.ok) {

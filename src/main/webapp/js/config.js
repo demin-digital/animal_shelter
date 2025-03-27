@@ -5,8 +5,7 @@ const CONFIG = {
     REDIRECT_URI: "http://localhost:8082/shadow-auth",
     ACCESS_TOKEN_KEY: "access_token",
     BACKEND_URI: "http://localhost:8083",
-    REFRESH_TOKEN_KEY: "refresh_token",
-    RESOURSE_SERVER_TOKEN_KEY: "token"
+    REFRESH_TOKEN_KEY: "refresh_token"
 };
 
 export default CONFIG;

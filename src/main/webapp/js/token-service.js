@@ -10,13 +10,6 @@ class TokenService {
         sessionStorage.setItem('refresh_token', tokens.refresh_token);
     }
 
-    static saveRSToken(token) {
-        sessionStorage.setItem(CONFIG.RESOURSE_SERVER_TOKEN_KEY, token.token);
-    }
-
-    static getRSToken() {
-        return sessionStorage.getItem(CONFIG.RESOURSE_SERVER_TOKEN_KEY);
-    }
 
     // Проверка, истек ли срок действия токена
     static isTokenExpired(token) {

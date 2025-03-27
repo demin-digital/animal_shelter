@@ -56,8 +56,7 @@ class AuthService {
 
     static isAuthenticated() {
         return sessionStorage.getItem("access_token") &&
-            sessionStorage.getItem("refresh_token") &&
-            sessionStorage.getItem("token");
+            sessionStorage.getItem("refresh_token")
     }
 
 
@@ -65,7 +64,6 @@ class AuthService {
         // Удаляем токены из sessionStorage
         sessionStorage.removeItem("access_token");
         sessionStorage.removeItem("refresh_token");
-        sessionStorage.removeItem("token");
 
         // Перенаправляем на страницу входа
         window.location.href = "/sign-up";

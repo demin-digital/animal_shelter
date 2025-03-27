@@ -1,7 +1,7 @@
 import axios from 'https://cdn.skypack.dev/axios';
 import CONFIG from './config.js';
 
-axios.defaults.baseURL = CONFIG.SERVER_URL;
+axios.defaults.baseURL = CONFIG.AUTH_SERVER_URL;
 
 class TokenService {
     // Сохранение токенов
@@ -41,7 +41,7 @@ class TokenService {
 
         try {
             const response = await axios.post('/oauth2/token', payload, {
-                baseURL: CONFIG.SERVER_URL,
+                baseURL: CONFIG.AUTH_SERVER_URL,
                 headers: {
                     'Authorization': CONFIG.AUTH_HEADER_VALUE,
                 },

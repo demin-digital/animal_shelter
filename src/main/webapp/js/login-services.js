@@ -1,7 +1,7 @@
 import CONFIG from './config.js';
 import axios from 'https://cdn.skypack.dev/axios';
 
-axios.defaults.baseURL = CONFIG.SERVER_URL;
+axios.defaults.baseURL = CONFIG.AUTH_SERVER_URL;
 
 class LoginService {
     // Редирект на страницу авторизации
@@ -13,26 +13,26 @@ class LoginService {
             scope: "read.scope write.scope"
         });
 
-        window.location.href = `${CONFIG.SERVER_URL}/oauth2/authorize?${requestParams}`;
+        window.location.href = `${CONFIG.AUTH_SERVER_URL}/oauth2/authorize?${requestParams}`;
     }
 
     // Аутентификация через логин и пароль
     static async authenticate(username, password) {
         try {
-            const response = await axios.post('/auth', {
+            const response = await axios.post('/auth/login', {
                 username: username,
                 password: password
             }, {
-                baseURL: CONFIG.BACKEND_URI,
+                baseURL: CONFIG.AUTH_SERVER_URL,
                 headers: {
                     'Content-Type': 'application/json'
                 }
             });
 
             // Проверяем, есть ли токен в ответе
-            if (response.data.token) {
-                sessionStorage.setItem(CONFIG.RESOURSE_SERVER_TOKEN_KEY, response.data.token);
-                console.log("Токен сохранен:", response.data.token);
+            if (response.data.access_token) {
+                sessionStorage.setItem(CONFIG.ACCESS_TOKEN_KEY, response.data.access_token);
+                console.log("Токен сохранен:", response.data.access_token);
             }
 
             return response.data;

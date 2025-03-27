@@ -2,7 +2,7 @@ import axios from 'https://cdn.skypack.dev/axios';
 import CONFIG from './config.js';
 import TokenService from './token-service.js';
 
-axios.defaults.baseURL = CONFIG.SERVER_URL;
+axios.defaults.baseURL = CONFIG.AUTH_SERVER_URL;
 
 class AuthService {
     // Получение кода авторизации из URL

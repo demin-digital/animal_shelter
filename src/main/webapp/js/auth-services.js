@@ -2,7 +2,7 @@ import axios from 'https://cdn.skypack.dev/axios';
 import CONFIG from './config.js';
 import TokenService from './token-service.js';
 
-axios.defaults.baseURL = CONFIG.SERVER_URL;
+axios.defaults.baseURL = CONFIG.AUTH_SERVER_URL;
 
 class AuthService {
     // Получение кода авторизации из URL
@@ -56,8 +56,7 @@ class AuthService {
 
     static isAuthenticated() {
         return sessionStorage.getItem("access_token") &&
-            sessionStorage.getItem("refresh_token") &&
-            sessionStorage.getItem("token");
+            sessionStorage.getItem("refresh_token")
     }
 
 
@@ -65,7 +64,6 @@ class AuthService {
         // Удаляем токены из sessionStorage
         sessionStorage.removeItem("access_token");
         sessionStorage.removeItem("refresh_token");
-        sessionStorage.removeItem("token");
 
         // Перенаправляем на страницу входа
         window.location.href = "/sign-up";
@@ -91,6 +89,17 @@ class AuthService {
                 window.location.href = AuthService.isAuthenticated() ? "/my-account" : "/sign-up";
             });
         }
+    }
+
+    static async getProfile(token) {
+        const access_token = sessionStorage.getItem(CONFIG.ACCESS_TOKEN_KEY);
+        const response = await axios.get(`${CONFIG.BACKEND_URI}/profile/info`, {
+            headers: {
+                'Authorization': `Bearer ${access_token}`,
+                'token': token
+            }
+        });
+        return response.data;
     }
 }
 

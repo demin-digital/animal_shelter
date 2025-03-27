@@ -48,7 +48,6 @@ class SearchService {
         try {
             // Проверяем и обновляем токен
             const access_token = await TokenService.checkAndRefreshToken();
-            const token = TokenService.getRSToken();
 
             // Формируем URL с параметрами поиска
             const url = new URL(`${CONFIG.BACKEND_URI}/pet/search`, window.location.origin);
@@ -59,8 +58,7 @@ class SearchService {
             // Отправляем GET-запрос на сервер с токеном
             const response = await fetch(url, {
                 headers: {
-                    'Authorization': `Bearer ${access_token}`,
-                    'token': token
+                    'Authorization': `Bearer ${access_token}`
                 },
             });
 

@@ -8,19 +8,9 @@ axios.defaults.baseURL = "http://localhost:8083"; // Явно задаем API U
 class FavoriteService {
     static async getFavorites() {
         try {
-            const token = TokenService.getRSToken(); // Получаем сохраненный токен
             const access_token = await TokenService.checkAndRefreshToken();
-
-            if (!token) {
-                console.warn("Токен отсутствует!");
-                return [];
-            }
-
-            console.log("Используемый токен:", token);
-
             const response = await axios.get("/favorites/user", {
                 headers: {
-                    "token": token,
                     'Authorization': `Bearer ${access_token}`
                 }
             });
@@ -45,17 +35,9 @@ class FavoriteService {
         const access_token = await TokenService.checkAndRefreshToken();
 
         try {
-            const token = TokenService.getRSToken(); // Получаем сохраненный токен
-            if (!token) {
-                console.warn("Токен отсутствует!");
-                return false;
-            }
-
-            console.log("Используемый токен:", token);
 
             const response = await axios.delete(`/favorites/remove?petId=${petId}`, {
                 headers: {
-                    'token': token,
                     'Authorization': `Bearer ${access_token}`
                 }
             });
@@ -75,7 +57,6 @@ class FavoriteService {
         try {
             // Проверяем и обновляем токен
             const access_token = await TokenService.checkAndRefreshToken();
-            const token = TokenService.getRSToken();
 
             // Формируем URL с параметрами поиска
             const url = new URL(`${CONFIG.BACKEND_URI}/favorites/add`, window.location.origin);
@@ -88,7 +69,6 @@ class FavoriteService {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'token': token,
                     'Authorization': `Bearer ${access_token}`,
                 },
                 body: body,

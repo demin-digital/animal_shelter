@@ -3,8 +3,8 @@ import CONFIG from './config.js';
 
 class RegistrationServices {
     static async register(data) {
-        const response = await axios.post("/registration", data, {
-            baseURL: CONFIG.BACKEND_URI,
+        const response = await axios.post("/auth/register", data, {
+            baseURL: CONFIG.AUTH_SERVER_URL,
             headers: {
                 "Content-Type": "application/json"
             }
@@ -51,17 +51,12 @@ document.addEventListener("DOMContentLoaded", function () {
             // DEBUG — выводим ответ в консоль
             console.log("Registration response:", response);
         
-            const res = response?.data || response; // fallback, если .data нет
+            const res = response;
         
-            if (res.result === true) {
+            if (res.success) {
                 showMessage("Регистрация успешна!", "success");
                 form.reset();
-        
-                // Переход через 2 секунды
-                setTimeout(() => {
-                    window.location.href = "/sign-up";
-                }, 2000);
-        
+                setTimeout(() => window.location.href = "/sign-up", 2000);
             } else {
                 showMessage("Ошибка: " + (res.message || "Неизвестная ошибка"), "danger");
             }

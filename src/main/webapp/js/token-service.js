@@ -1,7 +1,10 @@
 import axiosAuth from './axios-auth.js';
 import CONFIG from './config.js';
 
+let isRefreshing = false;
+
 class TokenService {
+
     static saveTokens(tokens) {
         sessionStorage.setItem('access_token', tokens.access_token);
         sessionStorage.setItem('refresh_token', tokens.refresh_token);
@@ -117,18 +120,34 @@ class TokenService {
             response => response,
             async (error) => {
                 const originalRequest = error.config;
+    
+                // Защита от зацикливания
                 if (error.response?.status === 401 && !originalRequest._retry) {
+                    if (isRefreshing) {
+                        console.warn("Уже идёт попытка обновления токена, прерываем повторную попытку.");
+                        return Promise.reject(error);
+                    }
+    
                     originalRequest._retry = true;
+                    isRefreshing = true;
+    
                     try {
                         const newTokens = await TokenService.refreshTokens();
+    
+                        // Проставим новый токен в оригинальный запрос
                         originalRequest.headers['Authorization'] = `Bearer ${newTokens.access_token}`;
-                        return instance(originalRequest);
+    
+                        isRefreshing = false;
+                        return instance(originalRequest); // повторяем запрос
                     } catch (refreshError) {
-                        console.error("Ошибка при обновлении токена через Interceptor:", refreshError);
+                        console.error("❌ Ошибка при обновлении токена через Interceptor:", refreshError);
+                        isRefreshing = false;
                         sessionStorage.clear();
                         window.location.href = "/sign-up";
+                        return Promise.reject(refreshError);
                     }
                 }
+    
                 return Promise.reject(error);
             }
         );

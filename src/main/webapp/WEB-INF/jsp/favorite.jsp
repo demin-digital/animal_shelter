@@ -37,7 +37,7 @@
                             </li>
                             <li class="nav-item">
                                 <a class="navbar-btn" href="/sign-up" ">
-                                    <img src="static/png/profile.png" alt="Profile">
+                                    <img src=" static/png/profile.png" alt="Profile">
                                 </a>
                             </li>
                         </ul>
@@ -58,32 +58,33 @@
         <script type="module">
             import FavoriteService from './js/favorite-service.js';
             import CONFIG from './js/config.js';
+            import TokenService from './js/token-service.js';
 
             document.addEventListener("DOMContentLoaded", async () => {
-    const loadingIndicator = document.getElementById("loading-indicator");
-    loadingIndicator.style.display = "block";
+                const loadingIndicator = document.getElementById("loading-indicator");
+                loadingIndicator.style.display = "block";
 
-    try {
-        // Шаг 1: Проверяем/обновляем токены
-        await TokenService.initTokenRefresh();
+                try {
+                    // Шаг 1: Проверяем/обновляем токены
+                    await TokenService.initTokenRefresh();
 
-        // Шаг 2: Загружаем избранное
-        const favorites = await FavoriteService.getFavorites();
-        console.log("Избранные питомцы:", favorites);
+                    // Шаг 2: Загружаем избранное
+                    const favorites = await FavoriteService.getFavorites();
+                    console.log("Избранные питомцы:", favorites);
 
-        renderFavorites(favorites);
+                    renderFavorites(favorites);
 
-    } catch (error) {
-        console.error("Ошибка инициализации избранного:", error);
+                } catch (error) {
+                    console.error("Ошибка инициализации избранного:", error);
 
-        // Редиректим только здесь
-        if (window.location.pathname !== "/sign-up" && window.location.pathname !== "/shadow-auth") {
-            window.location.href = "/sign-up";
-        }
-    } finally {
-        loadingIndicator.style.display = "none";
-    }
-});
+                    // Редиректим только здесь
+                    if (window.location.pathname !== "/sign-up" && window.location.pathname !== "/shadow-auth") {
+                        window.location.href = "/sign-up";
+                    }
+                } finally {
+                    loadingIndicator.style.display = "none";
+                }
+            });
 
             function renderFavorites(favorites) {
                 const container = document.getElementById("favorite-list");
@@ -143,14 +144,14 @@
                     const cardContent = `
                 <div class="fv-card border-0 bg-transparent">
                     <div class="card-img-container">
-                        <div class="favorite-icon `+ isChecked +`" onclick="toggleFavorite('card` + index + `')" id="card` + index + `">
+                        <div class="favorite-icon `+ isChecked + `" onclick="toggleFavorite('card` + index + `')" id="card` + index + `">
                             <div class="icon-wrapper">
                                 <svg class="inactive-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="16" fill="none" viewBox="0 0 18 16" stroke="currentColor">
                                     <path d="M8.42465 2.03443L8.80036 2.46232L9.17608 2.03443C9.24084 1.96069 9.30845 1.8885 9.37893 1.81802L9.048 1.48709L9.37893 1.81802C11.1363 0.0606602 13.9855 0.0606602 15.7429 1.81802C16.9657 3.04086 17.1503 4.52317 17.0918 5.42251C17.0384 6.24397 16.7829 6.87345 16.645 7.17876C16.3561 7.81846 15.9716 8.33972 15.7473 8.62972C13.5628 11.4543 12.3045 12.4559 10.7281 13.7107C10.1588 14.1638 9.54806 14.65 8.83724 15.2669C8.12006 14.6507 7.50522 14.1665 6.93242 13.7154C5.35004 12.4692 4.08855 11.4757 1.87677 8.651C1.65055 8.36209 1.26267 7.84294 0.969766 7.20546C0.830279 6.90188 0.569535 6.2722 0.511155 5.44832C0.447139 4.54492 0.625832 3.05003 1.85784 1.81802C3.6152 0.0606602 6.46444 0.0606602 8.2218 1.81802C8.29228 1.8885 8.3599 1.96069 8.42465 2.03443Z" stroke="black" />
                                 </svg>
                             </div>
                         </div>
-                        <img src="`+ petData.imageUrl +`" class="card-img-top">
+                        <img src="`+ petData.imageUrl + `" class="card-img-top">
                         <div class="fv-card-body">
                             <p class="fv-card-title"><strong>` + petData.nickname + `</strong></p>
                             <p class="fv-card-text"><strong>Порода: </strong>` + petData.breed + `</p>
@@ -161,7 +162,7 @@
                             <p class="fv-card-text"><strong>Стерилизован: </strong>` + petData.sterilized + `</p>
                             <p class="fv-card-text"><strong>Вакцинирован: </strong>` + petData.vaccinated + `</p>
                             <!-- Кнопка удаления теперь внутри этой card-body -->
-                <button class="btn btn-danger mt-3 remove-favorite" data-id="` + pet.id +`">Убрать из избранного</button>
+                <button class="btn btn-danger mt-3 remove-favorite" data-id="` + pet.id + `">Убрать из избранного</button>
                         </div>
                     </div>
                 </div>
@@ -170,20 +171,20 @@
                     card.innerHTML = cardContent;
 
                     // Добавляем обработчик события для удаления
-card.querySelector(".remove-favorite").addEventListener("click", async (event) => {
-    const petId = event.target.dataset.id;
-    try {
-        const result = await FavoriteService.removeFromFavorites(petId);
-        if (result) {
-            console.log("Питомец удален из избранного:", result);
-            card.remove(); // Удаляем карточку из DOM
-        } else {
-            console.error("Не удалось удалить питомца из избранного");
-        }
-    } catch (error) {
-        console.error("Ошибка при удалении из избранного:", error);
-    }
-});
+                    card.querySelector(".remove-favorite").addEventListener("click", async (event) => {
+                        const petId = event.target.dataset.id;
+                        try {
+                            const result = await FavoriteService.removeFromFavorites(petId);
+                            if (result) {
+                                console.log("Питомец удален из избранного:", result);
+                                card.remove(); // Удаляем карточку из DOM
+                            } else {
+                                console.error("Не удалось удалить питомца из избранного");
+                            }
+                        } catch (error) {
+                            console.error("Ошибка при удалении из избранного:", error);
+                        }
+                    });
 
                     // Добавляем карточку в контейнер
                     container.appendChild(card);

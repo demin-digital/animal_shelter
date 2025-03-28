@@ -3,6 +3,7 @@ import CONFIG from './config.js';
 import TokenService from './token-service.js';
 import FavoriteService from './favorite-service.js';
 import AuthService from './auth-services.js';
+import axiosAuth from './axios-auth.js';
 
 axios.defaults.baseURL = CONFIG.BACKEND_URI;
 
@@ -203,7 +204,7 @@ class SearchService {
 
 // Инициализация
 document.addEventListener("DOMContentLoaded", function () {
-    TokenService.setupAxiosInterceptors();
+    TokenService.setupAxiosInterceptors(axiosAuth);
     SearchService.loadCities(); // Загружаем список городов
     SearchService.handleCitySelection(); // Настраиваем обработчик выбора города
     SearchService.initSearchForm(); // Инициализируем обработчик формы поиска

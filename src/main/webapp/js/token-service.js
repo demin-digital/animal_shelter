@@ -1,58 +1,52 @@
-import axios from 'https://cdn.skypack.dev/axios';
+import axiosAuth from './axios-auth.js';
 import CONFIG from './config.js';
 
-axios.defaults.baseURL = CONFIG.AUTH_SERVER_URL;
-
 class TokenService {
-    // Сохранение токенов
     static saveTokens(tokens) {
         sessionStorage.setItem('access_token', tokens.access_token);
         sessionStorage.setItem('refresh_token', tokens.refresh_token);
     }
 
-    // Проверка, истек ли срок действия токена
     static isTokenExpired(token) {
         if (!token) return true;
-
         try {
-            const payload = JSON.parse(atob(token.split('.')[1])); // Декодируем payload токена
-            const exp = payload.exp; // Время истечения токена (в секундах)
-            const now = Math.floor(Date.now() / 1000); // Текущее время (в секундах)
-
-            return now >= exp; // Токен истек, если текущее время больше времени истечения
+            const payload = JSON.parse(atob(token.split('.')[1]));
+            return Math.floor(Date.now() / 1000) >= payload.exp;
         } catch (error) {
-            console.error("Error decoding token:", error);
-            return true; // Если токен некорректен, считаем его истекшим
+            console.error("Ошибка при проверке срока действия токена:", error);
+            return true;
         }
     }
 
-    // Определение источника токена ('api' или 'oauth2')
     static getTokenSource(refreshToken) {
-        try {
-            const payload = JSON.parse(atob(refreshToken.split('.')[1]));
-            return payload.source || 'unknown';
-        } catch (error) {
-            console.error("Ошибка при получении source из токена:", error);
-            return 'unknown';
+        // Проверяем, JWT ли это (наличие 3-х частей через '.')
+        if (refreshToken.split('.').length === 3) {
+            try {
+                const payload = JSON.parse(atob(refreshToken.split('.')[1]));
+                return payload.source || 'api'; // кастомные токены всегда имеют source
+            } catch (error) {
+                console.error("Ошибка при разборе JWT токена:", error);
+                return 'unknown';
+            }
+        } else {
+            return 'oauth2';
         }
     }
 
-    // Обновление токенов с использованием refresh token
     static async refreshTokens() {
         const refreshToken = sessionStorage.getItem('refresh_token');
 
-        if (!refreshToken) {
-            throw new Error('Refresh token не найден');
+        if (!refreshToken || typeof refreshToken !== 'string') {
+            throw new Error('Refresh token некорректный');
         }
-
+        
         const source = this.getTokenSource(refreshToken);
 
         if (source === 'api') {
             try {
-                const response = await axios.post('/auth/refresh', {
+                const response = await axiosAuth.post('/auth/refresh', {
                     refresh_token: refreshToken
                 });
-
                 this.saveTokens(response.data);
                 return response.data;
             } catch (error) {
@@ -65,13 +59,12 @@ class TokenService {
             payload.append('refresh_token', refreshToken);
 
             try {
-                const response = await axios.post('/oauth2/token', payload, {
+                const response = await axiosAuth.post('/oauth2/token', payload, {
                     headers: {
                         'Authorization': CONFIG.AUTH_HEADER_VALUE,
                         'Content-Type': 'application/x-www-form-urlencoded'
                     }
                 });
-
                 this.saveTokens(response.data);
                 return response.data;
             } catch (error) {
@@ -83,7 +76,6 @@ class TokenService {
         }
     }
 
-    // Проверка и обновление токена
     static async checkAndRefreshToken() {
         const accessToken = sessionStorage.getItem('access_token');
         const refreshToken = sessionStorage.getItem('refresh_token');
@@ -106,47 +98,37 @@ class TokenService {
     }
 
     static async initTokenRefresh() {
-            await TokenService.checkAndRefreshToken(); 
+        await TokenService.checkAndRefreshToken(); 
     }
 
-    static setupAxiosInterceptors() {
-        axios.interceptors.request.use(
+    static setupAxiosInterceptors(instance) {
+        instance.interceptors.request.use(
             async (config) => {
                 const accessToken = sessionStorage.getItem('access_token');
-    
                 if (accessToken && !TokenService.isTokenExpired(accessToken)) {
                     config.headers['Authorization'] = `Bearer ${accessToken}`;
                 }
-    
                 return config;
             },
             (error) => Promise.reject(error)
         );
-    
-        axios.interceptors.response.use(
+
+        instance.interceptors.response.use(
             response => response,
             async (error) => {
                 const originalRequest = error.config;
-    
-                // Если это 401 и мы ещё не пробовали обновить
                 if (error.response?.status === 401 && !originalRequest._retry) {
                     originalRequest._retry = true;
-    
                     try {
                         const newTokens = await TokenService.refreshTokens();
-    
-                        // Обновляем access_token в заголовке
-                        axios.defaults.headers.common['Authorization'] = `Bearer ${newTokens.access_token}`;
                         originalRequest.headers['Authorization'] = `Bearer ${newTokens.access_token}`;
-    
-                        return axios(originalRequest); // Повторяем оригинальный запрос
+                        return instance(originalRequest);
                     } catch (refreshError) {
                         console.error("Ошибка при обновлении токена через Interceptor:", refreshError);
-                        sessionStorage.clear(); // Очистка токенов
-                        window.location.href = "/sign-up"; // Перенаправление на вход
+                        sessionStorage.clear();
+                        window.location.href = "/sign-up";
                     }
                 }
-    
                 return Promise.reject(error);
             }
         );

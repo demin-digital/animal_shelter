@@ -1,5 +1,6 @@
 import CONFIG from './config.js';
 import axios from 'https://cdn.skypack.dev/axios';
+import TokenService from './token-service.js';
 
 axios.defaults.baseURL = CONFIG.AUTH_SERVER_URL;
 
@@ -19,22 +20,17 @@ class LoginService {
     // Аутентификация через логин и пароль
     static async authenticate(username, password) {
         try {
-            const response = await axios.post('/auth/login', {
-                username: username,
-                password: password
-            }, {
-                baseURL: CONFIG.AUTH_SERVER_URL,
+            const payload = { username, password };
+
+            const response = await axios.post("/auth/login", payload, {
                 headers: {
-                    'Content-Type': 'application/json'
+                    "Content-Type": "application/json"
                 }
             });
-
-            // Проверяем, есть ли токен в ответе
-            if (response.data.access_token) {
-                sessionStorage.setItem(CONFIG.ACCESS_TOKEN_KEY, response.data.access_token);
-                console.log("Токен сохранен:", response.data.access_token);
-            }
-
+    
+            // Сохраняем access и refresh токены
+            TokenService.saveTokens(response.data);
+    
             return response.data;
         } catch (error) {
             console.error("Ошибка при аутентификации:", error);

@@ -105,7 +105,6 @@ class AuthService {
 
 // Вызываем handleAuthorization() только если это shadow-auth.jsp
 document.addEventListener("DOMContentLoaded", () => {
-    TokenService.initTokenRefresh();
     if (window.location.pathname.includes("shadow-auth")) {
         AuthService.handleAuthorization();
     }

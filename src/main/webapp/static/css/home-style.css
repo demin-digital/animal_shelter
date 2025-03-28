@@ -1141,3 +1141,26 @@ h1 {
   text-align: center;
   max-width: 150px; /* Ограничиваем ширину */
 }
+
+/* Admin-only page */
+
+#admin-title {
+  font-family: Outfit, sans-serif;
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 16px;
+  letter-spacing: 0em;
+  color: #000000;
+  text-align: center;
+  margin-top: 66px;
+}
+
+#admin-message {
+  font-family: 'Outfit', sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 18px;
+  text-align: center;
+  color: #000000;
+  margin-top: 40px;
+}

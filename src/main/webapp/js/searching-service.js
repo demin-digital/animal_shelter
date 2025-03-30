@@ -1,31 +1,23 @@
-import axios from 'https://cdn.skypack.dev/axios';
 import CONFIG from './config.js';
 import TokenService from './token-service.js';
 import FavoriteService from './favorite-service.js';
 import AuthService from './auth-services.js';
-import axiosAuth from './axios-auth.js';
+import axiosResource from './axios-resource.js';
 
-axios.defaults.baseURL = CONFIG.BACKEND_URI;
 
 class SearchService {
-    // Функция для загрузки списка городов
     static async loadCities() {
         try {
-            // Отправляем GET-запрос на бэкенд
-            const response = await fetch(`${CONFIG.BACKEND_URI}/cities/get_list/`);
-            const data = await response.json();
+            const response = await axiosResource.get('/cities/get_list/');
+            const data = response.data;
 
-            // Получаем элемент <select>
             const citySelect = document.getElementById('city-select');
-
-            // Очищаем список (если там уже есть элементы)
             citySelect.innerHTML = '<option value="" disabled selected>Выберите город</option>';
 
-            // Добавляем города в выпадающий список
             data.cities.forEach(city => {
                 const option = document.createElement('option');
-                option.value = city.cityId; // Значение для отправки на сервер
-                option.textContent = city.name; // Отображаемое название города
+                option.value = city.cityId;
+                option.textContent = city.name;
                 citySelect.appendChild(option);
             });
         } catch (error) {
@@ -33,57 +25,42 @@ class SearchService {
         }
     }
 
-    // Функция для обработки выбора города
     static handleCitySelection() {
         const citySelect = document.getElementById('city-select');
         citySelect.addEventListener('change', function () {
-            const selectedCityId = this.value; // Получаем выбранный cityId
-            const selectedCityName = this.options[this.selectedIndex].text; // Получаем название города
+            const selectedCityId = this.value;
+            const selectedCityName = this.options[this.selectedIndex].text;
 
             console.log('Выбран город:', selectedCityName, 'ID:', selectedCityId);
         });
     }
 
-    // Функция для поиска питомцев
     static async searchPets(cityId, breed, petId) {
         try {
-            // Проверяем и обновляем токен
-            const access_token = await TokenService.checkAndRefreshToken();
+            await TokenService.checkAndRefreshToken();
 
-            // Формируем URL с параметрами поиска
-            const url = new URL(`${CONFIG.BACKEND_URI}/pet/search`, window.location.origin);
-            if (cityId) url.searchParams.append('cityId', cityId);
-            if (breed) url.searchParams.append('breed', breed);
-            if (petId) url.searchParams.append('petId', petId);
+            const params = {};
+            if (cityId) params.cityId = cityId;
+            if (breed) params.breed = breed;
+            if (petId) params.petId = petId;
 
-            // Отправляем GET-запрос на сервер с токеном
-            const response = await fetch(url, {
-                headers: {
-                    'Authorization': `Bearer ${access_token}`
-                },
-            });
+            const response = await axiosResource.get('/pet/search', { params });
+            const pets = response.data;
 
-            if (!response.ok) {
-                throw new Error('Ошибка при выполнении запроса');
-            }
-
-            const pets = await response.json();
             this.displaySearchResults(pets);
         } catch (error) {
             console.error('Ошибка при поиске питомцев:', error);
             this.displayError(error.message);
 
-            // Если ошибка связана с авторизацией, перенаправляем на страницу логина
             if (error.message.includes('Необходимо авторизоваться') || error.message.includes('Не удалось обновить токен')) {
-                // window.location.href = '/login'; TODO: убрать на финальной стадии проекта, либо сделать переадресацию на страницу логина
+                // window.location.href = '/login'; // TODO убрать на финальной стадии проекта, либо сделать переадресацию на страницу логина
             }
         }
     }
 
-    // Функция для отображения результатов поиска
     static displaySearchResults(pets) {
         const resultsContainer = document.getElementById('search-results');
-        resultsContainer.innerHTML = ''; // Очищаем предыдущие результаты
+        resultsContainer.innerHTML = '';
 
         if (pets.length === 0) {
             resultsContainer.innerHTML = '<p>Ничего не найдено.</p>';
@@ -99,10 +76,10 @@ class SearchService {
 
             const img = document.createElement('img');
             img.className = 'card-img-top';
-            img.src = pet.imageUrl ?  CONFIG.BACKEND_URI + pet.imageUrl : '/static/png/card-dog.png'; 
-        
-            card.dataset.petId = pet.id;  // Сохраняем ID собаки в dataset чтобы дальше отправлять в сервисы
-            card.dataset.cityId = pet.cityId; // Сохраняем ID города
+            img.src = pet.imageUrl ? CONFIG.BACKEND_URI + pet.imageUrl : '/static/png/card-dog.png';
+
+            card.dataset.petId = pet.id;
+            card.dataset.cityId = pet.cityId;
 
             const cardBody = document.createElement('div');
             cardBody.className = 'sp-card-body';
@@ -121,14 +98,11 @@ class SearchService {
             card.appendChild(cardBody);
             col.appendChild(card);
 
-            // Если isFavorite = true, сразу делаем кнопку активной
             const isFavorite = pet.isFavorite ? "checked" : "";
 
-            // Создаем кнопку "Избранное"
             const favButton = document.createElement('div');
             favButton.className = 'favorite-icon ' + isFavorite;
-            favButton.id = `fav-${pet.id}`;  // Присваиваем ID для поиска элемента
-
+            favButton.id = `fav-${pet.id}`;
             favButton.innerHTML = `
                 <div class="icon-wrapper">
                     <svg class="inactive-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="16" fill="none" viewBox="0 0 18 16" stroke="currentColor">
@@ -148,7 +122,7 @@ class SearchService {
             // Добавляем обработчик клика на избранное
             favButton.addEventListener('click', (event) => {
                 event.stopPropagation();
-                this.toggleFavorite(pet.id); // Вызываем метод класса
+                this.toggleFavorite(pet.id);
             });
         });
     }
@@ -156,57 +130,48 @@ class SearchService {
     static async toggleFavorite(petId) {
         const favIcon = document.getElementById(`fav-${petId}`);
         if (!favIcon) return;
-    
+
         const isCurrentlyFavorite = favIcon.classList.contains("checked");
-    
+
         try {
             if (isCurrentlyFavorite) {
                 await FavoriteService.removeFromFavorites(petId);
             } else {
                 await FavoriteService.addToFavorites(petId);
             }
-    
-            // Переключаем класс в зависимости от нового состояния
+
             favIcon.classList.toggle("checked", !isCurrentlyFavorite);
         } catch (error) {
             console.error('Ошибка при изменении избранного:', error);
         }
     }
 
-    // Функция для отображения ошибки
     static displayError(message) {
         const resultsContainer = document.getElementById('search-results');
-        resultsContainer.innerHTML = `<p style="color: red;">Ошибка:` + message + `</p>`;
+        resultsContainer.innerHTML = `<p style="color: red;">Ошибка:` + message + `</p>`; 
     }
 
-    // Инициализация обработчика формы поиска
     static initSearchForm() {
         const searchForm = document.getElementById('search-form');
-
-        // Проверяем, существует ли элемент
         if (!searchForm) {
             console.error('Элемент с id="search-form" не найден');
             return;
         }
 
         searchForm.addEventListener('submit', function (event) {
-            event.preventDefault(); // Предотвращаем стандартное поведение формы
-
-            // Получаем выбранный город и введенную породу
+            event.preventDefault();
             const cityId = document.getElementById('city-select').value;
             const breed = document.getElementById('breed-input').value;
 
-            // Выполняем поиск
             SearchService.searchPets(cityId, breed);
         });
     }
 }
 
-// Инициализация
 document.addEventListener("DOMContentLoaded", function () {
-    TokenService.setupAxiosInterceptors(axiosAuth);
-    SearchService.loadCities(); // Загружаем список городов
-    SearchService.handleCitySelection(); // Настраиваем обработчик выбора города
-    SearchService.initSearchForm(); // Инициализируем обработчик формы поиска
+    TokenService.setupAxiosInterceptors(axiosResource);
+    SearchService.loadCities();
+    SearchService.handleCitySelection();
+    SearchService.initSearchForm();
     AuthService.initNavButtonHandler();
 });

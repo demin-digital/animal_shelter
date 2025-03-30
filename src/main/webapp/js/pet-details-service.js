@@ -12,7 +12,6 @@ class PetDetailsService {
                 params: { petId, "cityId":"1" }
             });
 
-            console.log("Response" + response.data);
             const pets = response.data;
             if (!pets.length) {
                 document.getElementById('pet-details').innerHTML = '<p>Питомец не найден.</p>';

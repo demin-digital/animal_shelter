@@ -34,3 +34,7 @@ build/
 .vscode/
 .DS_Store
 .mvn/
+
+### NODE Obfuskator ###
+node_modules/
+node/

@@ -1,0 +1,10 @@
+{
+    "name": "animal_shelter_frontend",
+    "version": "1.0.0",
+    "scripts": {
+     "obfuscate": "javascript-obfuscator src/main/webapp/js --output src/main/webapp/js --compact true --self-defending true"
+    },
+    "devDependencies": {
+      "javascript-obfuscator": "^4.0.0"
+    }
+  }

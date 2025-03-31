@@ -15,3 +15,15 @@
 После этих 2-х простых действий, проект запустится.  
 Главная страница будет доступна по ссылке: *localhost:8082*
 
+
+PROD version
+mvn clean package - обфускация
+
+Проверка что файлы обфусцированы:
+cd target
+mkdir jar-test
+cd jar-test
+jar -xf ../animal_shelter-0.0.1-SNAPSHOT.jar
+ls static/js/
+
+Запуск JAR: java -jar target/animal_shelter-0.0.1-SNAPSHOT.jar 

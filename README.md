@@ -17,7 +17,7 @@
 
 
 PROD version
-mvn clean package - обфускация
+mvn clean package -Pproduction - обфускация
 
 Проверка что файлы обфусцированы:
 cd target

@@ -53,12 +53,11 @@
 	</dependencies>
 
 	<build>
-
 		<resources>
 			<resource>
 				<directory>src/main/resources</directory>
 			</resource>
-			<!-- Обфусцированные JS -->
+			<!-- Копируем JS из /src/main/webapp/js в /static/js -->
 			<resource>
 				<directory>src/main/webapp/js</directory>
 				<targetPath>static/js</targetPath>
@@ -67,7 +66,7 @@
 				</includes>
 			</resource>
 
-			<!-- JSP-шаблоны -->
+			<!-- Копируем JSP в WEB-INF/jsp -->
 			<resource>
 				<directory>src/main/webapp/WEB-INF</directory>
 				<targetPath>WEB-INF</targetPath>
@@ -78,49 +77,57 @@
 		</resources>
 
 		<plugins>
-			<!-- Spring Boot packaging -->
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-
-			<!-- JS обфускация -->
-			<plugin>
-				<groupId>com.github.eirslett</groupId>
-				<artifactId>frontend-maven-plugin</artifactId>
-				<version>1.12.1</version>
-				<executions>
-					<execution>
-						<id>install node and npm</id>
-						<goals>
-							<goal>install-node-and-npm</goal>
-						</goals>
-						<configuration>
-							<nodeVersion>v18.17.0</nodeVersion>
-						</configuration>
-					</execution>
-					<execution>
-						<id>npm install</id>
-						<goals>
-							<goal>npm</goal>
-						</goals>
-						<configuration>
-							<arguments>install</arguments>
-						</configuration>
-					</execution>
-					<execution>
-						<id>obfuscate js</id>
-						<goals>
-							<goal>npm</goal>
-						</goals>
-						<phase>generate-resources</phase>
-						<configuration>
-							<arguments>run obfuscate</arguments>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
 		</plugins>
 	</build>
 
+	<profiles>
+		<profile>
+			<id>production</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>com.github.eirslett</groupId>
+						<artifactId>frontend-maven-plugin</artifactId>
+						<version>1.12.1</version>
+						<executions>
+							<execution>
+								<id>install node and npm</id>
+								<goals>
+									<goal>install-node-and-npm</goal>
+								</goals>
+								<configuration>
+									<nodeVersion>v18.17.0</nodeVersion>
+								</configuration>
+							</execution>
+
+							<execution>
+								<id>npm install</id>
+								<goals>
+									<goal>npm</goal>
+								</goals>
+								<configuration>
+									<arguments>install</arguments>
+								</configuration>
+							</execution>
+
+							<execution>
+								<id>obfuscate js</id>
+								<goals>
+									<goal>npm</goal>
+								</goals>
+								<phase>generate-resources</phase>
+								<configuration>
+									<arguments>run obfuscate</arguments>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 </project>
